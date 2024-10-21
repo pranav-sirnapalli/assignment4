@@ -25,8 +25,8 @@ public class ImageOperations {
     for (int row = 0; row < red.getHeight(); row++) {
       for (int col = 0; col < red.getWidth(); col++) {
         int r = red.getPixel(row,col)[0];
-        int g = red.getPixel(row,col)[1];
-        int b = red.getPixel(row,col)[2];
+        int g = green.getPixel(row,col)[1];
+        int b = blue.getPixel(row,col)[2];
         int[] rgb = {r,g,b};
         result.setPixel(row, col,rgb);
       }

@@ -6,11 +6,11 @@ public class RGBImage extends Image {
         super(width, height);
     }
 
-    public Image redComponent() {
+    public Image redComponent(Image image) {
         Image result = new RGBImage(width, height);
         for (int i = 0; i < height; i++) {
             for (int j = 0; j < width; j++) {
-                int[] pixel = getPixel(i, j);
+                int[] pixel = image.getPixel(i, j);
                 int[] newPixel = {pixel[0], 0, 0};
                 result.setPixel(i, j, newPixel);
             }
@@ -18,11 +18,11 @@ public class RGBImage extends Image {
         return result;
     }
 
-    public Image greenComponent() {
+    public Image greenComponent(Image image) {
         Image result = new RGBImage(width, height);
         for (int i = 0; i < height; i++) {
             for (int j = 0; j < width; j++) {
-                int[] pixel = getPixel(i, j);
+                int[] pixel = image.getPixel(i, j);
                 int[] newPixel = {0, pixel[1], 0};
                 result.setPixel(i, j, newPixel);
             }
@@ -30,11 +30,11 @@ public class RGBImage extends Image {
         return result;
     }
 
-    public Image blueComponent() {
+    public Image blueComponent(Image image) {
         Image result = new RGBImage(width, height);
         for (int i = 0; i < height; i++) {
             for (int j = 0; j < width; j++) {
-                int[] pixel = getPixel(i, j);
+                int[] pixel = image.getPixel(i, j);
                 int[] newPixel = {0, 0, pixel[2]};
                 result.setPixel(i, j, newPixel);
             }
