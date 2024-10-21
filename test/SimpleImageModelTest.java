@@ -1,13 +1,14 @@
 import java.io.IOException;
+import model.ImageModel;
 import org.junit.Before;
 import org.junit.Test;
 
 public class SimpleImageModelTest {
 
-  SimpleImageModel model;
+  ImageModel model;
   @Before
   public void setup() {
-    model = new SimpleImageModel();
+    model = new ImageModel();
     try{
       model.loadImage("src/img/a.png","a");
     }catch(Exception e){
