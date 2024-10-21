@@ -1,5 +1,3 @@
-package src;
-
 import controller.ImageController;
 
 import java.util.Scanner;
