@@ -39,14 +39,14 @@ public class SimpleImageModelTest {
 
   @Test
   public void brightTest() {
-    model.brighten("a", "a_bright", -50);
+    model.brighten(-50,"a", "a_bright");
     model.saveImage("src/img/a_bright.png", "a_bright");
 
   }
 
   @Test
   public void brightTest1() {
-    model.brighten("a", "a_dark", -10);
+    model.brighten(-10,"a", "a_dark");
     model.saveImage("src/img/a_dark.png", "a_dark");
 
   }

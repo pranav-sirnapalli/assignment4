@@ -26,7 +26,7 @@ public class ImageController {
 
   }
 
-  public void processCommand(String command) {
+  private void processCommand(String command) {
     // Skip empty lines or comments
     if (command.isEmpty() || command.startsWith("#")) {
       return;
@@ -63,7 +63,7 @@ public class ImageController {
         break;
       case "brighten":
         int increment = Integer.parseInt(tokens[3]);
-        imageModel.brighten(tokens[1], tokens[2], increment);
+        imageModel.brighten(increment, tokens[1], tokens[2]);
         break;
       case "blur":
         imageModel.blur(tokens[1], tokens[2]);
@@ -92,7 +92,7 @@ public class ImageController {
     }
   }
 
-  public void runScript(String scriptPath) {
+  private void runScript(String scriptPath) {
     try {
       String path = "script.txt";
       BufferedReader reader = new BufferedReader(new FileReader(scriptPath));
@@ -101,7 +101,7 @@ public class ImageController {
         this.processCommand(line);
       }
       reader.close();
-    }catch (IOException e) {
+    } catch (IOException e) {
       System.out.println(e.getMessage());
     }
   }
