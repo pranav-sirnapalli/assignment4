@@ -84,12 +84,6 @@ public class ImageOperations {
 
   public Image blur(Image img) {
     Image result = new Image(img.getWidth(), img.getHeight());
-    double[][] kernel1 = {
-        {1/16, 1/8, 1/16},
-        {1/8, 1/4, 1/8},
-        {1/16, 1/8, 1/16}
-    };
-
     int[][] kernel = {
         {1, 1, 1},
         {1, 1, 1},

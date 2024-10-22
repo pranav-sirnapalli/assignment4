@@ -1,5 +1,9 @@
 package controller;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Scanner;
 import model.ImageModel;
 
 public class ImageController {
@@ -11,6 +15,17 @@ public class ImageController {
     this.imageModel = new ImageModel();
   }
 
+  public void run(String[] args, Scanner scanner) {
+    System.out.println("Current working directory: " + System.getProperty("user.dir"));
+
+    while (true) {
+      System.out.print("Enter command: ");
+      String command = scanner.nextLine();
+      this.processCommand(command);
+    }
+
+  }
+
   public void processCommand(String command) {
     // Skip empty lines or comments
     if (command.isEmpty() || command.startsWith("#")) {
@@ -19,16 +34,32 @@ public class ImageController {
     String[] tokens = command.split(" ");
     switch (tokens[0]) {
       case "load":
-        imageModel.loadImage(tokens[1], tokens[2]);
+        if (tokens.length != 3) {
+          System.out.println("Usage: load <input_file_path> <reference_name>");
+        } else {
+          imageModel.loadImage(tokens[1], tokens[2]);
+        }
         break;
       case "save":
-        imageModel.saveImage(tokens[1], tokens[2]);
+        if (tokens.length != 3) {
+          System.out.println("Usage: save <save_path> <output_name>");
+        } else {
+          imageModel.saveImage(tokens[1], tokens[2]);
+        }
         break;
-      case "flip-horizontal":
-        imageModel.flipHorizontal(tokens[1], tokens[2]);
+      case "horizontal-flip":
+        if (tokens.length != 3) {
+          System.out.println("Usage: horizontal-flip <reference_name> <output_name>");
+        } else {
+          imageModel.flipHorizontal(tokens[1], tokens[2]);
+        }
         break;
-      case "flip-vertical":
-        imageModel.flipVertical(tokens[1], tokens[2]);
+      case "vertical-flip":
+        if (tokens.length != 3) {
+          System.out.println("Usage: horizontal-flip <reference_name> <output_name>");
+        } else {
+          imageModel.flipVertical(tokens[1], tokens[2]);
+        }
         break;
       case "brighten":
         int increment = Integer.parseInt(tokens[3]);
@@ -37,7 +68,10 @@ public class ImageController {
       case "blur":
         imageModel.blur(tokens[1], tokens[2]);
         break;
-      case "greyScale":
+      case "sepia":
+        imageModel.sepia(tokens[1], tokens[2]);
+        break;
+      case "value-component":
         imageModel.greyScale(tokens[1], tokens[2]);
         break;
       case "rgb-split":
@@ -46,9 +80,26 @@ public class ImageController {
       case "rgb-combine":
         imageModel.combineImage(tokens[1], tokens[2], tokens[3], tokens[4]);
         break;
+      case "run":
+        runScript(tokens[1]);
+        break;
       default:
         System.out.println("Invalid command!");
         break;
+    }
+  }
+
+  public void runScript(String scriptPath) {
+    try {
+      String path = "script.txt";
+      BufferedReader reader = new BufferedReader(new FileReader(scriptPath));
+      String line;
+      while ((line = reader.readLine()) != null) {
+        this.processCommand(line);
+      }
+      reader.close();
+    }catch (IOException e) {
+      System.out.println(e.getMessage());
     }
   }
 }

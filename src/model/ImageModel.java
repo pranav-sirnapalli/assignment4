@@ -37,6 +37,10 @@ public class ImageModel {
     images.put(output, imageOperations.blur(images.get(input)));
   }
 
+  public void sepia(String input, String output) {
+    images.put(output, imageOperations.sepia(images.get(input)));
+  }
+
   public void greyScale(String input, String output) {
     images.put(output, imageOperations.toGreyscale(images.get(input)));
   }
