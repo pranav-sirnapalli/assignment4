@@ -57,4 +57,8 @@ public class ImageModel {
         imageOperations.combineImage(images.get(red), images.get(green), images.get(blue)));
   }
 
+  public void sharpen(String input, String output) {
+    images.put(output, imageOperations.sharpen(images.get(input)));
+  }
+
 }

@@ -71,6 +71,9 @@ public class ImageController {
       case "sepia":
         imageModel.sepia(tokens[1], tokens[2]);
         break;
+      case "sharpen":
+        imageModel.sharpen(tokens[1], tokens[2]);
+        break;
       case "value-component":
         imageModel.greyScale(tokens[1], tokens[2]);
         break;
