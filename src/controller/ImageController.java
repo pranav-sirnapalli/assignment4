@@ -1,22 +1,21 @@
 package controller;
 
-import java.util.HashMap;
-import java.util.Map;
-import model.Image;
 import model.ImageModel;
 
 public class ImageController {
 
-  private Map<String, Image> images;
   private ImageModel imageModel;
 
   public ImageController() {
 
-    this.images = new HashMap<>();
     this.imageModel = new ImageModel();
   }
 
   public void processCommand(String command) {
+    // Skip empty lines or comments
+    if (command.isEmpty() || command.startsWith("#")) {
+      return;
+    }
     String[] tokens = command.split(" ");
     switch (tokens[0]) {
       case "load":
@@ -42,10 +41,10 @@ public class ImageController {
         imageModel.greyScale(tokens[1], tokens[2]);
         break;
       case "rgb-split":
-        imageModel.splitImage(tokens[1], tokens[2],tokens[3],tokens[4]);
+        imageModel.splitImage(tokens[1], tokens[2], tokens[3], tokens[4]);
         break;
       case "rgb-combine":
-        imageModel.combineImage(tokens[1], tokens[2],tokens[3],tokens[4]);
+        imageModel.combineImage(tokens[1], tokens[2], tokens[3], tokens[4]);
         break;
       default:
         System.out.println("Invalid command!");

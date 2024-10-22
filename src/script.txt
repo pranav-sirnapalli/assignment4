@@ -1,0 +1,35 @@
+load img/a.png a
+
+save img/img_save.png a
+
+flip-horizontal a a_flipHor
+
+save img/img_flipHor.png a_flipHor
+
+flip-vertical a a_flipVer1
+
+save img/img_flipVer1.png a_flipVer1
+
+brighten a a_dark -100
+
+save img/img_dark.png a_dark
+
+blur a a_blur
+
+save img/img_blur.png a_blur
+
+greyScale a a_grey
+
+save img/img_grey.png a_grey
+
+rgb-split a a_r a_g a_b
+
+save img/img_r.png a_r
+
+save img/img_g.png a_g
+
+save img/img_b.png a_b
+
+rgb-combine a_combine a_r a_g a_b
+
+save img/img_combine.png a_combine
