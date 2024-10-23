@@ -1,114 +1,132 @@
 package model;
 
 /**
- * ImgModel interface defines a set of image manipulation operations
- * that can be implemented to load, save, and modify images in various ways.
- * <p>
- * The model supports different transformations such as flipping, brightening,
- * blurring, sharpening, applying sepia and greyscale filters, as well as
- * splitting and combining images based on color channels.
- * <p>
- * Implementations of this interface should provide functionality for the following:
- * - Loading and saving images.
- * - Applying transformations like horizontal/vertical flips, brightness adjustment,
- *   blurring, sharpening, sepia tone, and greyscale.
- * - Color channel manipulation via image splitting and combining.
+ * ImgOperations interface defines the operations that can be performed on images.
  */
 public interface ImgModel {
 
   /**
-   * Loads an image from the specified file path and stores it with a reference name.
+   * Splits an image into its RGB components.
    *
-   * @param imagePath The file path to the image.
-   * @param imageName The name to assign to the loaded image.
+   * @param image the Image to be split
+   * @return an RGBImage object containing separate channels for red, green, and blue
    */
-  void loadImage(String imagePath, String imageName);
+  RGBImage splitImage(Image image);
 
   /**
-   * Saves the specified image to the given file path.
+   * Combines the red, green, and blue components of separate images into one final image.
    *
-   * @param imagePath The file path where the image will be saved.
-   * @param imageName The name of the image to be saved.
+   * @param red   the Image containing the red channel
+   * @param green the Image containing the green channel
+   * @param blue  the Image containing the blue channel
+   * @return the combined Image
    */
-  void saveImage(String imagePath, String imageName);
+  Image combineImage(Image red, Image green, Image blue);
 
   /**
-   * Flips the specified image horizontally and stores the result as a new image.
+   * Flips an image horizontally (left to right).
    *
-   * @param imageName The name of the image to flip.
-   * @param destImageName The name of the resulting flipped image.
+   * @param img the Image to be flipped
+   * @return the horizontally flipped Image
    */
-  void flipHorizontal(String imageName, String destImageName);
+  Image flipHorizontal(Image img);
 
   /**
-   * Flips the specified image vertically and stores the result as a new image.
+   * Flips the given image vertically.
    *
-   * @param imageName The name of the image to flip.
-   * @param destImageName The name of the resulting flipped image.
+   * @param img the image to be flipped
+   * @return a new Image object that is vertically flipped
    */
-  void flipVertical(String imageName, String destImageName);
+  Image flipVertical(Image img);
 
   /**
-   * Adjusts the brightness of the specified image by a given increment
-   * and stores the result as a new image.
+   * Brightens the given image by a specified increment.
    *
-   * @param increment The value by which to increase or decrease the brightness.
-   * @param imageName The name of the image to brighten.
-   * @param destImageName The name of the resulting brightened image.
+   * @param img       the image to brighten
+   * @param increment the amount to increase the brightness
+   * @return a new Image object that is brightened
    */
-  void brighten(int increment, String imageName, String destImageName);
+  Image brighten(Image img, int increment);
 
   /**
-   * Applies a blur effect to the specified image and stores the result as a new image.
+   * Converts the given image to greyscale.
    *
-   * @param imageName The name of the image to blur.
-   * @param destImageName The name of the resulting blurred image.
+   * @param img the image to convert
+   * @return a new Image object that is in greyscale
    */
-  void blur(String imageName, String destImageName);
+  Image toGreyscale(Image img);
 
   /**
-   * Sharpens the specified image and stores the result as a new image.
+   * Applies a blur effect to the given image.
    *
-   * @param imageName The name of the image to sharpen.
-   * @param destImageName The name of the resulting sharpened image.
+   * @param img the image to blur
+   * @return a new Image object that is blurred
    */
-  void sharpen(String imageName, String destImageName);
+  Image blur(Image img);
 
   /**
-   * Applies a sepia filter to the specified image and stores the result as a new image.
+   * Applies a sepia filter to the given image.
    *
-   * @param imageName The name of the image to apply sepia to.
-   * @param destImageName The name of the resulting sepia-toned image.
+   * @param img the image to apply the filter on
+   * @return a new Image object with the sepia effect applied
    */
-  void sepia(String imageName, String destImageName);
+  Image sepia(Image img);
 
   /**
-   * Converts the specified image to greyscale and stores the result as a new image.
+   * Applies a sharpening filter to the given image.
    *
-   * @param imageName The name of the image to convert to greyscale.
-   * @param destImageName The name of the resulting greyscale image.
+   * @param img the image to sharpen
+   * @return a new Image object with the sharpened effect applied
    */
-  void greyScale(String imageName, String destImageName);
+  Image sharpen(Image img);
 
   /**
-   * Splits the specified image into its red, green, and blue color channels,
-   * and stores each channel as a separate image.
+   * Converts an RGB image to a grayscale image based on the max value calculation.
    *
-   * @param imageName The name of the image to split.
-   * @param red The name of the resulting red channel image.
-   * @param green The name of the resulting green channel image.
-   * @param blue The name of the resulting blue channel image.
+   * @param img the input RGB image to be converted
+   * @return a new grayscale image representing the max value of the original image
    */
-  void splitImage(String imageName, String red, String green, String blue);
+  Image value(Image img);
 
   /**
-   * Combines the red, green, and blue channel images into a single image and stores it.
+   * Converts an RGB image to a grayscale image based on the intensity calculation.
    *
-   * @param imageName The name of the resulting combined image.
-   * @param red The name of the red channel image.
-   * @param green The name of the green channel image.
-   * @param blue The name of the blue channel image.
+   * @param img the input RGB image to be converted
+   * @return a new grayscale image representing the intensity of the original image
    */
-  void combineImage(String imageName, String red, String green, String blue);
+  Image intensity(Image img);
+
+  /**
+   * Converts an RGB image to a grayscale image based on the luma calculation.
+   *
+   * @param img the input RGB image to be converted
+   * @return a new grayscale image representing the luma of the original image
+   */
+  Image luma(Image img);
+
+  /**
+   * Converts an RGB image to a grayscale image based on red component.
+   *
+   * @param img the input RGB image to be converted
+   * @return a new grayscale image representing the red component of the original image
+   */
+  Image redComponent(Image img);
+
+  /**
+   * Converts an RGB image to a grayscale image based on green component.
+   *
+   * @param img the input RGB image to be converted
+   * @return a new grayscale image representing the green component of the original image
+   */
+  Image greenComponent(Image img);
+
+  /**
+   * Converts an RGB image to a grayscale image based on blue component.
+   *
+   * @param img the input RGB image to be converted
+   * @return a new grayscale image representing the blue component of the original image
+   */
+  Image blueComponent(Image img);
+
 
 }

@@ -3,8 +3,12 @@ package controller;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
+import model.Image;
 import model.ImageModel;
+import utils.ImageIOHelper;
 
 /**
  * The ImageController class handles user commands for performing various image processing
@@ -16,9 +20,9 @@ import model.ImageModel;
 public class ImageController {
 
   private ImageModel imageModel;
+  private Map<String, Image> images = new HashMap<>();
 
   public ImageController() {
-
     this.imageModel = new ImageModel();
   }
 
@@ -56,51 +60,90 @@ public class ImageController {
         if (tokens.length != 3) {
           System.out.println("Usage: load <input_file_path> <reference_name>");
         } else {
-          imageModel.loadImage(tokens[1], tokens[2]);
+          Image image = ImageIOHelper.loadImage(tokens[1]);
+          images.put(tokens[2], image);
         }
         break;
       case "save":
         if (tokens.length != 3) {
           System.out.println("Usage: save <save_path> <output_name>");
         } else {
-          imageModel.saveImage(tokens[1], tokens[2]);
+          ImageIOHelper.saveImage(tokens[1], images.get(tokens[2]));
         }
         break;
       case "horizontal-flip":
         if (tokens.length != 3) {
           System.out.println("Usage: horizontal-flip <reference_name> <output_name>");
         } else {
-          imageModel.flipHorizontal(tokens[1], tokens[2]);
+          Image img = imageModel.flipHorizontal(images.get(tokens[1]));
+          images.put(tokens[2], img);
         }
         break;
       case "vertical-flip":
         if (tokens.length != 3) {
           System.out.println("Usage: horizontal-flip <reference_name> <output_name>");
         } else {
-          imageModel.flipVertical(tokens[1], tokens[2]);
+          Image img = imageModel.flipVertical(images.get(tokens[1]));
+          images.put(tokens[2], img);
         }
         break;
       case "brighten":
         int increment = Integer.parseInt(tokens[3]);
-        imageModel.brighten(increment, tokens[1], tokens[2]);
+        Image img = imageModel.brighten(images.get(tokens[1]), increment);
+        images.put(tokens[2], img);
         break;
       case "blur":
-        imageModel.blur(tokens[1], tokens[2]);
+        Image blur = imageModel.blur(images.get(tokens[1]));
+        images.put(tokens[2], blur);
         break;
       case "sepia":
-        imageModel.sepia(tokens[1], tokens[2]);
+        Image sepia = imageModel.sepia(images.get(tokens[1]));
+        images.put(tokens[2], sepia);
         break;
       case "sharpen":
-        imageModel.sharpen(tokens[1], tokens[2]);
+        Image sharpen = imageModel.sharpen(images.get(tokens[1]));
+        images.put(tokens[2], sharpen);
         break;
-      case "value-component":
-        imageModel.greyScale(tokens[1], tokens[2]);
+      case "greyScale":
+        Image greyScale = imageModel.toGreyscale(images.get(tokens[1]));
+        images.put(tokens[2], greyScale);
         break;
       case "rgb-split":
-        imageModel.splitImage(tokens[1], tokens[2], tokens[3], tokens[4]);
+        Image r = imageModel.redComponent(images.get(tokens[1]));
+        Image g = imageModel.greenComponent(images.get(tokens[1]));
+        Image b = imageModel.blueComponent(images.get(tokens[1]));
+        images.put(tokens[2], r);
+        images.put(tokens[3], g);
+        images.put(tokens[4], b);
         break;
       case "rgb-combine":
-        imageModel.combineImage(tokens[1], tokens[2], tokens[3], tokens[4]);
+        Image combined = imageModel.combineImage(images.get(tokens[2]), images.get(tokens[3]),
+            images.get(tokens[4]));
+        images.put(tokens[1], combined);
+        break;
+      case "red-component":
+        Image redComponent = imageModel.redComponent(images.get(tokens[1]));
+        images.put(tokens[2], redComponent);
+        break;
+      case "green-component":
+        Image greenComponent = imageModel.greenComponent(images.get(tokens[1]));
+        images.put(tokens[2], greenComponent);
+        break;
+      case "blue-component":
+        Image blueComponent = imageModel.blueComponent(images.get(tokens[1]));
+        images.put(tokens[2], blueComponent);
+        break;
+      case "value-component":
+        Image value = imageModel.value(images.get(tokens[1]));
+        images.put(tokens[2], value);
+        break;
+      case "luma-component":
+        Image luma = imageModel.luma(images.get(tokens[1]));
+        images.put(tokens[2], luma);
+        break;
+      case "intensity-component":
+        Image intensity = imageModel.intensity(images.get(tokens[1]));
+        images.put(tokens[2], intensity);
         break;
       case "run":
         runScript(tokens[1]);

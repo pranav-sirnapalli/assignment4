@@ -1,6 +1,6 @@
+import controller.ImageController;
 import model.Image;
 import model.ImageModel;
-import model.ImageOperations;
 import org.junit.Before;
 import org.junit.Test;
 import utils.ImageIOHelper;
@@ -8,19 +8,19 @@ import utils.ImageIOHelper;
 public class ImageModelTest {
 
   ImageModel model;
-  ImageOperations operations;
+  ImageIOHelper helper;
   Image testImage;
   @Before
   public void setup() {
     model = new ImageModel();
-    operations = new ImageOperations();
-    model.loadImage("src/img/test.png", "test");
+    helper = new ImageIOHelper();
+    Image img = helper.loadImage("src/img/test.png");
     testImage = ImageIOHelper.loadImage("src/img/test.png");
 
   }
 
   @Test
   public void testLoadImage() {
-    Image bright = operations.brighten(testImage,10);
+    Image bright = model.brighten(testImage,10);
   }
 }
