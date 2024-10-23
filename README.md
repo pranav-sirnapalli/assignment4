@@ -12,6 +12,7 @@ Loading and Saving Images below files are all in the package utils:
 - The interface names ImageHandler() is used to hold the load and save images
   so that interface can be used to rewrite same method if required elsewhere.
 - StandardImageHandler(): This file implements the ImageHandler methods for our assignment
+  
       - loadImage(): after using ImageIO.read() to read the image from the file path and store it in an object.
                      It takes in the width and height and then extracts the rgb values using getRGB and then sets the
                      values obtained using setPixelloads image of specific size after making use of getRGB and setPixel.
