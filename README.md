@@ -90,8 +90,10 @@ The following commands are supported by the Image Processing Program:
 
 
 ## How to run script file:
-- A text file called `script.txt` has been pre-written in our project.
-- Please use `run src/scrip.txt` to run it.
+- Go to the Main.java and click the run button.
+- Go to the command line.
+- A text file called `script.txt` has been pre-written under the src.
+- And type this `run src/script.txt` in command line to run the script.
 
 ## Citation for picture: 
 - (n.d.). https://pngtree.com/freepng/checkerboard-clipart-check-chess-game-checker-board_6166270.html
