@@ -6,6 +6,13 @@ import java.io.IOException;
 import java.util.Scanner;
 import model.ImageModel;
 
+/**
+ * The ImageController class handles user commands for performing various image processing
+ * operations. It interacts with the ImageModel to load, save, and apply transformations to images.
+ * <p>
+ * It supports both interactive commands and the execution of a script containing multiple
+ * commands.
+ */
 public class ImageController {
 
   private ImageModel imageModel;
@@ -16,16 +23,28 @@ public class ImageController {
   }
 
   public void run(String[] args, Scanner scanner) {
-    System.out.println("Current working directory: " + System.getProperty("user.dir"));
-
-    while (true) {
+    //System.out.println("Current working directory: " + System.getProperty("user.dir"));
+    boolean running = true;
+    while (running) {
       System.out.print("Enter command: ");
       String command = scanner.nextLine();
-      this.processCommand(command);
+
+      if (command.equals("exit")) {
+        System.out.println("Exiting program...");
+        running = false;
+      } else {
+        this.processCommand(command);
+      }
     }
 
   }
 
+  /**
+   * Processes individual commands entered by the user. Each command corresponds to an image
+   * operation such as loading, saving, flipping, or applying filters.
+   *
+   * @param command The command entered by the user.
+   */
   private void processCommand(String command) {
     // Skip empty lines or comments
     if (command.isEmpty() || command.startsWith("#")) {
@@ -92,6 +111,13 @@ public class ImageController {
     }
   }
 
+
+  /**
+   * Reads and executes commands from a script file. Each line of the file is treated as a separate
+   * command.
+   *
+   * @param scriptPath The file path to the script.
+   */
   private void runScript(String scriptPath) {
     try {
       String path = "script.txt";

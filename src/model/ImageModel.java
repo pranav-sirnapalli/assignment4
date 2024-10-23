@@ -3,11 +3,17 @@ package model;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * ImageModel
+ */
 public class ImageModel implements ImgModel {
 
   private Map<String, Image> images;
   private ImageOperations imageOperations;
 
+  /**
+   * Constructor initializes the images map and the ImageOperations instance.
+   */
   public ImageModel() {
     images = new HashMap<>();
     imageOperations = new ImageOperations();

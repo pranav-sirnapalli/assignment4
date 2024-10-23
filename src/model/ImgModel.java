@@ -3,11 +3,11 @@ package model;
 /**
  * ImgModel interface defines a set of image manipulation operations
  * that can be implemented to load, save, and modify images in various ways.
- *
+ * <p>
  * The model supports different transformations such as flipping, brightening,
  * blurring, sharpening, applying sepia and greyscale filters, as well as
  * splitting and combining images based on color channels.
- *
+ * <p>
  * Implementations of this interface should provide functionality for the following:
  * - Loading and saving images.
  * - Applying transformations like horizontal/vertical flips, brightness adjustment,

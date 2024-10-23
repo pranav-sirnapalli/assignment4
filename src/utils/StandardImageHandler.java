@@ -7,6 +7,10 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * StandardImageHandler is a concrete implementation of the ImageHandler interface
+ * specifically for handling JPG and PNG images.
+ */
 public class StandardImageHandler implements ImageHandler {
 
   @Override

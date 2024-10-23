@@ -2,22 +2,53 @@ package model;
 
 import utils.ImageIOHelper;
 
+/**
+ * Helper class of ImageModel provides various image manipulation methods such as loading, saving,
+ * flipping, and applying filters like blur, sepia, and sharpen.
+ */
 public class ImageOperations {
 
+  /**
+   * Loads an image from the specified file path using the ImageIOHelper utility.
+   *
+   * @param path the file path of the image to be loaded
+   * @return the loaded Image object
+   */
   public Image loadImage(String path) {
     Image image = ImageIOHelper.loadImage(path);
     return ImageIOHelper.loadImage(path);
 
   }
 
+  /**
+   * Saves an image to the specified file path using the ImageIOHelper utility.
+   *
+   * @param path  the destination file path where the image will be saved
+   * @param image the Image object to be saved
+   */
   public void saveImage(String path, Image image) {
     ImageIOHelper.saveImage(path, image);
   }
 
+  /**
+   * Splits an image into its RGB components and returns an RGBImage object.
+   *
+   * @param image the Image to be split
+   * @return an RGBImage object containing separate channels for red, green, and blue
+   */
   public RGBImage splitImage(Image image) {
     return new RGBImage(image.width, image.height);
   }
 
+
+  /**
+   * Combines the red, green, and blue components of separate images into one final image.
+   *
+   * @param red   the Image containing the red channel
+   * @param green the Image containing the green channel
+   * @param blue  the Image containing the blue channel
+   * @return the combined Image
+   */
   public Image combineImage(Image red, Image green, Image blue) {
     Image result = new Image(red.getWidth(), red.getHeight());
     for (int row = 0; row < red.getHeight(); row++) {
@@ -32,6 +63,12 @@ public class ImageOperations {
     return result;
   }
 
+  /**
+   * Flips an image horizontally (left to right).
+   *
+   * @param img the Image to be flipped
+   * @return the horizontally flipped Image
+   */
   public Image flipHorizontal(Image img) {
     Image result = new Image(img.getWidth(), img.getHeight());
     for (int row = 0; row < img.getHeight(); row++) {
@@ -42,6 +79,12 @@ public class ImageOperations {
     return result;
   }
 
+  /**
+   * Flips the given image vertically.
+   *
+   * @param img the image to be flipped
+   * @return a new Image object that is vertically flipped
+   */
   public Image flipVertical(Image img) {
     Image result = new Image(img.getWidth(), img.getHeight());
     for (int row = 0; row < img.getHeight(); row++) {
@@ -52,6 +95,13 @@ public class ImageOperations {
     return result;
   }
 
+  /**
+   * Brightens the given image by a specified increment.
+   *
+   * @param img       the image to brighten
+   * @param increment the amount to increase the brightness
+   * @return a new Image object that is brightened
+   */
   public Image brighten(Image img, int increment) {
     Image result = new Image(img.getWidth(), img.getHeight());
     for (int row = 0; row < img.getHeight(); row++) {
@@ -67,6 +117,12 @@ public class ImageOperations {
     return result;
   }
 
+  /**
+   * Converts the given image to greyscale.
+   *
+   * @param img the image to convert
+   * @return a new Image object that is in greyscale
+   */
   public Image toGreyscale(Image img) {
     Image result = new Image(img.getWidth(), img.getHeight());
     for (int row = 0; row < img.getHeight(); row++) {
@@ -80,6 +136,12 @@ public class ImageOperations {
     return result;
   }
 
+  /**
+   * Applies a blur effect to the given image.
+   *
+   * @param img the image to blur
+   * @return a new Image object that is blurred
+   */
   public Image blur(Image img) {
     Image result = new Image(img.getWidth(), img.getHeight());
     int[][] kernel = {
@@ -110,6 +172,12 @@ public class ImageOperations {
     return result;
   }
 
+  /**
+   * Applies a sepia filter to the given image.
+   *
+   * @param img the image to apply the filter on
+   * @return a new Image object with the sepia effect applied
+   */
   public Image sepia(Image img) {
     Image result = new Image(img.getWidth(), img.getHeight());
 
@@ -130,15 +198,20 @@ public class ImageOperations {
     return result;
   }
 
+  /**
+   * Applies a sharpening filter to the given image.
+   *
+   * @param img the image to sharpen
+   * @return a new Image object with the sharpened effect applied
+   */
   public Image sharpen(Image img) {
     Image result = new Image(img.getWidth(), img.getHeight());
 
-    // 5x5 sharpen kernel
     double[][] kernel = {
         {-0.125, -0.125, -0.125, -0.125, -0.125},
         {-0.125, 0.25, 0.25, 0.25, -0.125},
         {-0.125, 0.25, 1, 0.25, -0.125},
-        {-0.125, 0.25, 0.25, 0.25,-0.125},
+        {-0.125, 0.25, 0.25, 0.25, -0.125},
         {-0.125, -0.125, -0.125, -0.125, -0.125}
     };
 

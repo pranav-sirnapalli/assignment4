@@ -4,6 +4,10 @@ import model.Image;
 
 import java.io.*;
 
+/**
+ * PPMImageHandler is a concrete implementation of the ImageHandler interface
+ * specifically for handling PPM (Portable Pixmap) images in P3 format.
+ */
 public class PPMImageHandler implements ImageHandler {
 
   @Override
