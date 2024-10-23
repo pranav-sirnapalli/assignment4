@@ -1,46 +1,134 @@
 package controller;
 
-import model.Image;
-import model.ImageOperations;
-import utils.ImageIOHelper;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Scanner;
+import model.ImageModel;
 
-import java.util.HashMap;
-import java.util.Map;
-
+/**
+ * The ImageController class handles user commands for performing various image processing
+ * operations. It interacts with the ImageModel to load, save, and apply transformations to images.
+ * <p>
+ * It supports both interactive commands and the execution of a script containing multiple
+ * commands.
+ */
 public class ImageController {
 
-    private Map<String, Image> images;
+  private ImageModel imageModel;
 
-    public ImageController() {
-        this.images = new HashMap<>();
+  public ImageController() {
+
+    this.imageModel = new ImageModel();
+  }
+
+  public void run(Scanner scanner) {
+    //System.out.println("Current working directory: " + System.getProperty("user.dir"));
+    boolean running = true;
+    while (running) {
+      System.out.print("Enter command: ");
+      String command = scanner.nextLine();
+
+      if (command.equals("exit")) {
+        System.out.println("Exiting program...");
+        running = false;
+      } else {
+        this.processCommand(command);
+      }
     }
 
-    public void processCommand(String command) {
-        String[] tokens = command.split(" ");
-        switch (tokens[0]) {
-            case "load":
-                Image img = ImageIOHelper.loadImage(tokens[1]);
-                images.put(tokens[2], img);
-                break;
-            case "save":
-                ImageIOHelper.saveImage(tokens[1], images.get(tokens[2]));
-                break;
-            case "flip-horizontal":
-                Image flippedH = ImageOperations.flipHorizontal(images.get(tokens[1]));
-                images.put(tokens[2], flippedH);
-                break;
-            case "flip-vertical":
-                Image flippedV = ImageOperations.flipVertical(images.get(tokens[1]));
-                images.put(tokens[2], flippedV);
-                break;
-            case "brighten":
-                int increment = Integer.parseInt(tokens[3]);
-                Image brightened = ImageOperations.brighten(images.get(tokens[1]), increment);
-                images.put(tokens[2], brightened);
-                break;
-            default:
-                System.out.println("Invalid command!");
-                break;
+  }
+
+  /**
+   * Processes individual commands entered by the user. Each command corresponds to an image
+   * operation such as loading, saving, flipping, or applying filters.
+   *
+   * @param command The command entered by the user.
+   */
+  private void processCommand(String command) {
+    // Skip empty lines or comments
+    if (command.isEmpty() || command.startsWith("#")) {
+      return;
+    }
+    String[] tokens = command.split(" ");
+    switch (tokens[0]) {
+      case "load":
+        if (tokens.length != 3) {
+          System.out.println("Usage: load <input_file_path> <reference_name>");
+        } else {
+          imageModel.loadImage(tokens[1], tokens[2]);
         }
+        break;
+      case "save":
+        if (tokens.length != 3) {
+          System.out.println("Usage: save <save_path> <output_name>");
+        } else {
+          imageModel.saveImage(tokens[1], tokens[2]);
+        }
+        break;
+      case "horizontal-flip":
+        if (tokens.length != 3) {
+          System.out.println("Usage: horizontal-flip <reference_name> <output_name>");
+        } else {
+          imageModel.flipHorizontal(tokens[1], tokens[2]);
+        }
+        break;
+      case "vertical-flip":
+        if (tokens.length != 3) {
+          System.out.println("Usage: horizontal-flip <reference_name> <output_name>");
+        } else {
+          imageModel.flipVertical(tokens[1], tokens[2]);
+        }
+        break;
+      case "brighten":
+        int increment = Integer.parseInt(tokens[3]);
+        imageModel.brighten(increment, tokens[1], tokens[2]);
+        break;
+      case "blur":
+        imageModel.blur(tokens[1], tokens[2]);
+        break;
+      case "sepia":
+        imageModel.sepia(tokens[1], tokens[2]);
+        break;
+      case "sharpen":
+        imageModel.sharpen(tokens[1], tokens[2]);
+        break;
+      case "value-component":
+        imageModel.greyScale(tokens[1], tokens[2]);
+        break;
+      case "rgb-split":
+        imageModel.splitImage(tokens[1], tokens[2], tokens[3], tokens[4]);
+        break;
+      case "rgb-combine":
+        imageModel.combineImage(tokens[1], tokens[2], tokens[3], tokens[4]);
+        break;
+      case "run":
+        runScript(tokens[1]);
+        break;
+      default:
+        System.out.println("Invalid command!");
+        break;
     }
+  }
+
+
+  /**
+   * Reads and executes commands from a script file. Each line of the file is treated as a separate
+   * command.
+   *
+   * @param scriptPath The file path to the script.
+   */
+  private void runScript(String scriptPath) {
+    try {
+      String path = "script.txt";
+      BufferedReader reader = new BufferedReader(new FileReader(scriptPath));
+      String line;
+      while ((line = reader.readLine()) != null) {
+        this.processCommand(line);
+      }
+      reader.close();
+    } catch (IOException e) {
+      System.out.println(e.getMessage());
+    }
+  }
 }

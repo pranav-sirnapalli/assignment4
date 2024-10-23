@@ -1,0 +1,51 @@
+
+#load a.png and call it 'a'
+load src/img/a.png a
+
+#flip a vertically
+vertical-flip a a_flipVer
+
+#save a-flipVer
+save src/img/img_flipVer.png a_flipVer
+
+#overload 'a' to test.png
+load src/img/test.png a
+
+#flip the vertically flipped koala horizontally
+horizontal-flip a test_flipHor
+
+#save a-flipHor
+save src/img/test_flipHor.png test_flipHor
+
+#overload 'a' back to a.png
+load src/img/a.png a
+
+#brighten a by adding 100
+brighten a a_dark -100
+
+#save a-dark
+save src/img/img_dark.png a_dark
+
+#create a greyscale using only the value component, as an image a-greyscale
+value-component a a_greyScale
+
+#save a-a_greyScale
+save src/img/img_grey.png a_greyScale
+
+#split the image in red, green and blue
+rgb-split a a_r a_g a_b
+
+#save split color images
+save src/img/img_r.png a_r
+
+save src/img/img_g.png a_g
+
+save src/img/img_b.png a_b
+
+#combine them back
+rgb-combine a_combine a_r a_g a_b
+
+#save the a_combine
+save src/img/img_combine.png a_combine
+
+
