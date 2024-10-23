@@ -1,13 +1,13 @@
-Introduction
+# Introduction
 In this assignment we are building an image processing application that supports both text-based and GUI-based user interfaces. This application will alllow you to perform
 multiple functions like loading an image, manipulate the image(blur, horizonatal-flip, greyscale etc), and also save this resulting.
 It has been designed in such a way additional operations can be added easily in the future.
 
-Features and their respective files:
+## Features and their respective files:
 
 The operations performed as well as the files used for it are written below to give a high-level overview.
 
-Loading and Saving Images below files are all in the package utils:
+## Loading and Saving Images below files are all in the package utils:
 - This is done using the files present in the utils folder.
 - The interface names ImageHandler() is used to hold the load and save images
   so that interface can be used to rewrite same method if required elsewhere.
@@ -33,7 +33,7 @@ Loading and Saving Images below files are all in the package utils:
                          whereas the image getFileExtension is needed to get the required file extension to the getHandler so
                          it can be returned to ImageIOHelper class which calls it in its methods.
 
-The model and the operations performed using it:
+## The model and the operations performed using it:
 - ImageHandler(): Used to hold the dimensions of image and pixel data in 3D array. It has the methods getwidth(), getheight(),
                   getPixel() and setPixel(). This class is used for easy manipulation of an image's pixel data, which can be useful
                   for operations in ImageModel.
@@ -47,4 +47,51 @@ The model and the operations performed using it:
 - RGBImage(): This class is an extension of the current Image class. It provides the methods to extract the red,
               green and blue from the particular images. The results returned in the methods of this class
               are used to set the pixels.
-                      
+
+## Supported Commands:
+
+The following commands are supported by the Image Processing Program:
+
+- **`load <input_file_path> <reference_name>`**  
+  Loads an image from the specified file and stores it with the given reference name.
+
+- **`save <save_path> <output_name>`**  
+  Saves the image referenced by `<output_name>` to the specified path.
+
+- **`horizontal-flip <reference_name> <output_name>`**  
+  Creates a horizontally flipped version of the image referenced by `<reference_name>`.
+
+- **`vertical-flip <reference_name> <output_name>`**  
+  Creates a vertically flipped version of the image referenced by `<reference_name>`.
+
+- **`brighten <reference_name> <output_name> <increment>`**  
+  Brightens the image referenced by `<reference_name>` by the specified increment.
+
+- **`blur <reference_name> <output_name>`**  
+  Applies a blur effect to the image referenced by `<reference_name>`.
+
+- **`sepia <reference_name> <output_name>`**  
+  Applies a sepia tone to the image referenced by `<reference_name>`.
+
+- **`sharpen <reference_name> <output_name>`**  
+  Sharpens the image referenced by `<reference_name>`.
+
+- **`greyScale <reference_name> <output_name>`**  
+  Converts the image referenced by `<reference_name>` to greyscale.
+
+- **`rgb-split <reference_name> <red_output> <green_output> <blue_output>`**  
+  Splits the image into its RGB components.
+
+- **`rgb-combine <output_name> <red_reference> <green_reference> <blue_reference>`**  
+  Combines RGB components back into a single image.
+
+- **`run <script_path>`**  
+  Executes a series of commands from a script file.
+
+
+## How to run script file:
+- A text file called `script.txt` has been pre-written in our project.
+- Please use `run src/scrip.txt` to run it.
+
+## Citation for picture: 
+- (n.d.). https://pngtree.com/freepng/checkerboard-clipart-check-chess-game-checker-board_6166270.html

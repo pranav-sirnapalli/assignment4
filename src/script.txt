@@ -45,7 +45,7 @@ save src/img/img_b.png a_b
 #combine them back
 rgb-combine a_combine a_r a_g a_b
 
-#save the a_combine
+#save a_combine
 save src/img/img_combine.png a_combine
 
 
