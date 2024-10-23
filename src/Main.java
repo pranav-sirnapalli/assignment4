@@ -9,6 +9,6 @@ public class Main {
   public static void main(String[] args) {
     Scanner scanner = new Scanner(System.in);
     ImageController controller = new ImageController();
-    controller.run(args,scanner);
+    controller.run(scanner);
   }
 }

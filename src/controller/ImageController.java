@@ -22,7 +22,7 @@ public class ImageController {
     this.imageModel = new ImageModel();
   }
 
-  public void run(String[] args, Scanner scanner) {
+  public void run(Scanner scanner) {
     //System.out.println("Current working directory: " + System.getProperty("user.dir"));
     boolean running = true;
     while (running) {
