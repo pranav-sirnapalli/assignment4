@@ -88,6 +88,9 @@ The following commands are supported by the Image Processing Program:
 - **`run <script_path>`**  
   Executes a series of commands from a script file.
 
+- **`exit`**  
+  Quit the program. 
+
 
 ## How to run script file:
 - Go to the Main.java and click the run button.

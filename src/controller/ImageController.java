@@ -13,7 +13,6 @@ import utils.ImageIOHelper;
 /**
  * The ImageController class handles user commands for performing various image processing
  * operations. It interacts with the ImageModel to load, save, and apply transformations to images.
- * <p>
  * It supports both interactive commands and the execution of a script containing multiple
  * commands.
  */
@@ -22,10 +21,17 @@ public class ImageController {
   private ImageModel imageModel;
   private Map<String, Image> images = new HashMap<>();
 
+  /**
+   * Constructor of ImageController.
+   */
   public ImageController() {
     this.imageModel = new ImageModel();
   }
 
+  /**
+   * Run the Controller logic.
+   * @param scanner scanner of run.
+   */
   public void run(Scanner scanner) {
     //System.out.println("Current working directory: " + System.getProperty("user.dir"));
     boolean running = true;

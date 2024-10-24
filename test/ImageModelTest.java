@@ -1,14 +1,22 @@
+import static org.junit.Assert.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+
 import model.Image;
 import model.ImageModel;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * ImageModel test.
+ */
 public class ImageModelTest {
 
   private ImageModel imageModel;
   private Image testImage;
 
+  /**
+   * Setup method run before each test.
+   */
   @BeforeEach
   public void setUp() {
     imageModel = new ImageModel();
@@ -85,7 +93,7 @@ public class ImageModelTest {
   @Test
   public void testRedComponent() {
     Image redComponent = imageModel.redComponent(testImage);
-    assertArrayEquals(new int[]{255 , 255, 255}, redComponent.getPixel(0, 0));
+    assertArrayEquals(new int[]{255, 255, 255}, redComponent.getPixel(0, 0));
     assertArrayEquals(new int[]{0, 0, 0}, redComponent.getPixel(0, 1));
     assertArrayEquals(new int[]{0, 0, 0}, redComponent.getPixel(1, 0));
     assertArrayEquals(new int[]{255, 255, 255}, redComponent.getPixel(1, 1));
@@ -95,7 +103,7 @@ public class ImageModelTest {
   public void testGreenComponent() {
     Image greenComponent = imageModel.greenComponent(testImage);
     assertArrayEquals(new int[]{0, 0, 0}, greenComponent.getPixel(0, 0));
-    assertArrayEquals(new int[]{255 , 255, 255}, greenComponent.getPixel(0, 1));
+    assertArrayEquals(new int[]{255, 255, 255}, greenComponent.getPixel(0, 1));
     assertArrayEquals(new int[]{0, 0, 0}, greenComponent.getPixel(1, 0));
     assertArrayEquals(new int[]{255, 255, 255}, greenComponent.getPixel(1, 1));
   }
@@ -141,6 +149,7 @@ public class ImageModelTest {
       testImage.getPixel(2, 2); // Accessing out of bounds
     });
   }
+
   @Test
   public void testFlipVerticalNullImage() {
     assertThrows(IllegalArgumentException.class, () -> {

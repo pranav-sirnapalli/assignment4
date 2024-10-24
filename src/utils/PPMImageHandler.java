@@ -1,8 +1,12 @@
 package utils;
 
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import model.Image;
 
-import java.io.*;
+import java.io.BufferedReader;
 
 /**
  * PPMImageHandler is a concrete implementation of the ImageHandler interface
@@ -19,7 +23,12 @@ public class PPMImageHandler implements ImageHandler {
         return null;
       }
       String line;
-      while ((line = reader.readLine()) != null && line.startsWith("#"));
+      while ((line = reader.readLine()) != null) {
+        line = line.trim();
+        if (!line.startsWith("#")) {
+          break;
+        }
+      }
 
       String[] dimensions = line.split(" ");
       int width = Integer.parseInt(dimensions[0]);

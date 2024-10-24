@@ -1,15 +1,14 @@
 package utils;
 
-import model.Image;
-
-import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import javax.imageio.ImageIO;
+import model.Image;
 
 /**
- * StandardImageHandler is a concrete implementation of the ImageHandler interface
- * specifically for handling JPG and PNG images.
+ * StandardImageHandler is a concrete implementation of the ImageHandler interface specifically for
+ * handling JPG and PNG images.
  */
 public class StandardImageHandler implements ImageHandler {
 
@@ -37,7 +36,8 @@ public class StandardImageHandler implements ImageHandler {
   @Override
   public void saveImage(String filePath, Image img) {
     try {
-      BufferedImage bufferedImage = new BufferedImage(img.getWidth(), img.getHeight(), BufferedImage.TYPE_INT_RGB);
+      BufferedImage bufferedImage = new BufferedImage(img.getWidth(), img.getHeight(),
+          BufferedImage.TYPE_INT_RGB);
       for (int i = 0; i < img.getHeight(); i++) {
         for (int j = 0; j < img.getWidth(); j++) {
           int[] pixel = img.getPixel(i, j);

@@ -1,48 +1,109 @@
 
 #load a.png and call it 'a'
-load src/img/a.png a
+load src/res/a.png a
 
 #flip a vertically
 vertical-flip a a_flipVer
 
 #save a-flipVer
-save src/img/img_flipVer.png a_flipVer
+save src/res/img_flipVer.png a_flipVer
 
 #flip the vertically flipped koala horizontally
 horizontal-flip a a_flipHor
 
 #save a-flipHor
-save src/img/a_flipHor.png a_flipHor
+save src/res/a_flipHor.png a_flipHor
 
 #overload 'a' back to a.png
-load src/img/a.png a
+load src/res/a.png a
 
-#brighten a by adding 100
+#brighten a by adding -100
 brighten a a_dark -100
 
 #save a-dark
-save src/img/img_dark.png a_dark
+save src/res/img_dark.png a_dark
+
+#brighten a by adding 100
+brighten a a_bright -100
+
+#save a-dark
+save src/res/img_bright.png a_bright
 
 #create a greyscale using only the value component, as an image a-greyscale
 value-component a a_greyScale
 
 #save a-a_greyScale
-save src/img/img_grey.png a_greyScale
+save src/res/img_grey.png a_greyScale
+
+#sharpen the image
+sharpen a a_sharpen
+
+#save a-a_sharpen
+save src/res/img_sharpen.png a_sharpen
+
+#blur the image
+blur a a_blur
+
+#save a-a_blur
+save src/res/img_blur.png a_blur
+
+#intensity of image
+intensity-component a a_intensity
+
+#save a-a_intensity
+save src/res/img_intensity.png a_intensity
+
+#sepia of image
+sepia a a_sepia
+
+#save a-a_sepia
+save src/res/img_sepia.png a_sepia
+
+#luma of image
+luma-component a a_luma
+
+#save a-a_luma
+save src/res/img_luma.png a_luma
 
 #split the image in red, green and blue
 rgb-split a a_r a_g a_b
 
 #save split color images
-save src/img/img_r.png a_r
+save src/res/img_split_r.png a_r
 
-save src/img/img_g.png a_g
+save src/res/img_split_g.png a_g
 
-save src/img/img_b.png a_b
+save src/res/img_split_b.png a_b
 
 #combine them back
 rgb-combine a_combine a_r a_g a_b
 
 #save a_combine
-save src/img/img_combine.png a_combine
+save src/res/img_combine.png a_combine
+
+#red-component
+red-component a a_red_component
+
+#save a-a_greyScale
+save src/res/img_red_component.png a_red_component
+
+#red-component
+red-component a a_red_component
+
+#save a-a_greyScale
+save src/res/img_red_component.png a_red_component
+
+#green-component
+green-component a a_green_component
+
+#save a-a_greyScale
+save src/res/img_green_component.png a_green_component
+
+#blue-component
+blue-component a a_blue_component
+
+#save a-a_greyScale
+save src/res/img_blue_component.png a_blue_component
+
 
 
