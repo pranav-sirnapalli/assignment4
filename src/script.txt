@@ -8,14 +8,11 @@ vertical-flip a a_flipVer
 #save a-flipVer
 save src/img/img_flipVer.png a_flipVer
 
-#overload 'a' to test.png
-load src/img/test.png a
-
 #flip the vertically flipped koala horizontally
-horizontal-flip a test_flipHor
+horizontal-flip a a_flipHor
 
 #save a-flipHor
-save src/img/test_flipHor.png test_flipHor
+save src/img/a_flipHor.png a_flipHor
 
 #overload 'a' back to a.png
 load src/img/a.png a

@@ -128,4 +128,94 @@ public class ImageModelTest {
     assertArrayEquals(new int[]{170, 170, 170}, intensityComponent.getPixel(1, 1));
   }
 
+  @Test
+  public void testSetPixelOutOfBounds() {
+    assertThrows(IndexOutOfBoundsException.class, () -> {
+      testImage.setPixel(2, 2, new int[]{255, 255, 255}); // Setting out of bounds
+    });
+  }
+
+  @Test
+  public void testAccessPixelOutOfBounds() {
+    assertThrows(IndexOutOfBoundsException.class, () -> {
+      testImage.getPixel(2, 2); // Accessing out of bounds
+    });
+  }
+  @Test
+  public void testFlipVerticalNullImage() {
+    assertThrows(IllegalArgumentException.class, () -> {
+      imageModel.flipVertical(null);
+    });
+  }
+
+  @Test
+  public void testBrightenNullImage() {
+    assertThrows(IllegalArgumentException.class, () -> {
+      imageModel.brighten(null, 50);
+    });
+  }
+
+  @Test
+  public void testToGreyscaleNullImage() {
+    assertThrows(IllegalArgumentException.class, () -> {
+      imageModel.toGreyscale(null);
+    });
+  }
+
+  @Test
+  public void testBlurNullImage() {
+    assertThrows(IllegalArgumentException.class, () -> {
+      imageModel.blur(null);
+    });
+  }
+
+  @Test
+  public void testSepiaNullImage() {
+    assertThrows(IllegalArgumentException.class, () -> {
+      imageModel.sepia(null);
+    });
+  }
+
+  @Test
+  public void testSharpenNullImage() {
+    assertThrows(IllegalArgumentException.class, () -> {
+      imageModel.sharpen(null);
+    });
+  }
+
+  @Test
+  public void testRedComponentNullImage() {
+    assertThrows(IllegalArgumentException.class, () -> {
+      imageModel.redComponent(null);
+    });
+  }
+
+  @Test
+  public void testGreenComponentNullImage() {
+    assertThrows(IllegalArgumentException.class, () -> {
+      imageModel.greenComponent(null);
+    });
+  }
+
+  @Test
+  public void testBlueComponentNullImage() {
+    assertThrows(IllegalArgumentException.class, () -> {
+      imageModel.blueComponent(null);
+    });
+  }
+
+  @Test
+  public void testValueComponentNullImage() {
+    assertThrows(IllegalArgumentException.class, () -> {
+      imageModel.value(null);
+    });
+  }
+
+  @Test
+  public void testIntensityComponentNullImage() {
+    assertThrows(IllegalArgumentException.class, () -> {
+      imageModel.intensity(null);
+    });
+  }
+
 }

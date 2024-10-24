@@ -8,11 +8,17 @@ public class ImageModel implements ImgModel {
 
   @Override
   public RGBImage splitImage(Image image) {
-    return new RGBImage(image.width, image.height);
+    if (image == null) {
+      throw new IllegalArgumentException("Image cannot be null");
+    }
+    return new RGBImage(image.getWidth(), image.getHeight());
   }
 
   @Override
   public Image combineImage(Image red, Image green, Image blue) {
+    if (red == null || green == null || blue == null) {
+      throw new IllegalArgumentException("None of the color images can be null");
+    }
     Image result = new Image(red.getWidth(), red.getHeight());
     for (int row = 0; row < red.getHeight(); row++) {
       for (int col = 0; col < red.getWidth(); col++) {
@@ -28,6 +34,9 @@ public class ImageModel implements ImgModel {
 
   @Override
   public Image flipHorizontal(Image img) {
+    if (img == null) {
+      throw new IllegalArgumentException("Image cannot be null");
+    }
     Image result = new Image(img.getWidth(), img.getHeight());
     for (int row = 0; row < img.getHeight(); row++) {
       for (int col = 0; col < img.getWidth(); col++) {
@@ -39,6 +48,9 @@ public class ImageModel implements ImgModel {
 
   @Override
   public Image flipVertical(Image img) {
+    if (img == null) {
+      throw new IllegalArgumentException("Image cannot be null");
+    }
     Image result = new Image(img.getWidth(), img.getHeight());
     for (int row = 0; row < img.getHeight(); row++) {
       for (int col = 0; col < img.getWidth(); col++) {
@@ -50,6 +62,9 @@ public class ImageModel implements ImgModel {
 
   @Override
   public Image brighten(Image img, int increment) {
+    if (img == null) {
+      throw new IllegalArgumentException("Image cannot be null");
+    }
     Image result = new Image(img.getWidth(), img.getHeight());
     for (int row = 0; row < img.getHeight(); row++) {
       for (int col = 0; col < img.getWidth(); col++) {
@@ -66,6 +81,9 @@ public class ImageModel implements ImgModel {
 
   @Override
   public Image toGreyscale(Image img) {
+    if (img == null) {
+      throw new IllegalArgumentException("Image cannot be null");
+    }
     Image result = new Image(img.getWidth(), img.getHeight());
     for (int row = 0; row < img.getHeight(); row++) {
       for (int col = 0; col < img.getWidth(); col++) {
@@ -80,6 +98,9 @@ public class ImageModel implements ImgModel {
 
   @Override
   public Image blur(Image img) {
+    if (img == null) {
+      throw new IllegalArgumentException("Image cannot be null");
+    }
     Image result = new Image(img.getWidth(), img.getHeight());
     int[][] kernel = {
         {1, 1, 1},
@@ -111,6 +132,9 @@ public class ImageModel implements ImgModel {
 
   @Override
   public Image sepia(Image img) {
+    if (img == null) {
+      throw new IllegalArgumentException("Image cannot be null");
+    }
     Image result = new Image(img.getWidth(), img.getHeight());
 
     for (int row = 0; row < img.getHeight(); row++) {
@@ -132,6 +156,9 @@ public class ImageModel implements ImgModel {
 
   @Override
   public Image sharpen(Image img) {
+    if (img == null) {
+      throw new IllegalArgumentException("Image cannot be null");
+    }
     Image result = new Image(img.getWidth(), img.getHeight());
 
     double[][] kernel = {
@@ -173,6 +200,9 @@ public class ImageModel implements ImgModel {
 
   @Override
   public Image value(Image img) {
+    if (img == null) {
+      throw new IllegalArgumentException("Image cannot be null");
+    }
     Image result = new Image(img.getWidth(), img.getHeight());
 
     for (int row = 0; row < img.getHeight(); row++) {
@@ -190,6 +220,9 @@ public class ImageModel implements ImgModel {
 
   @Override
   public Image intensity(Image img) {
+    if (img == null) {
+      throw new IllegalArgumentException("Image cannot be null");
+    }
     Image result = new Image(img.getWidth(), img.getHeight());
 
     for (int row = 0; row < img.getHeight(); row++) {
@@ -207,6 +240,9 @@ public class ImageModel implements ImgModel {
 
   @Override
   public Image luma(Image img) {
+    if (img == null) {
+      throw new IllegalArgumentException("Image cannot be null");
+    }
     Image result = new Image(img.getWidth(), img.getHeight());
 
     for (int row = 0; row < img.getHeight(); row++) {
@@ -224,18 +260,27 @@ public class ImageModel implements ImgModel {
 
   @Override
   public Image redComponent(Image img) {
+    if (img == null) {
+      throw new IllegalArgumentException("Image cannot be null");
+    }
     RGBImage rgbImage = new RGBImage(img.getWidth(), img.getHeight());
     return rgbImage.redComponent(img);
   }
 
   @Override
   public Image greenComponent(Image img) {
+    if (img == null) {
+      throw new IllegalArgumentException("Image cannot be null");
+    }
     RGBImage rgbImage = new RGBImage(img.getWidth(), img.getHeight());
     return rgbImage.greenComponent(img);
   }
 
   @Override
   public Image blueComponent(Image img) {
+    if (img == null) {
+      throw new IllegalArgumentException("Image cannot be null");
+    }
     RGBImage rgbImage = new RGBImage(img.getWidth(), img.getHeight());
     return rgbImage.blueComponent(img);
   }

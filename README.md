@@ -96,4 +96,4 @@ The following commands are supported by the Image Processing Program:
 - And type this `run src/script.txt` in command line to run the script.
 
 ## Citation for picture: 
-- (n.d.). https://pngtree.com/freepng/checkerboard-clipart-check-chess-game-checker-board_6166270.html
+- This picture is draw by my friend, her name(Xueer Wang) is also on the picture.
