@@ -4,7 +4,7 @@ package model;
  * The RGBImage class extends the Image class and provides methods to extract the red, green, and
  * blue components from an image.
  */
-public class RGBImage extends Image {
+public class RGBImage extends SimpleImage {
 
   /**
    * Constructs an RGBImage object with the specified width and height.

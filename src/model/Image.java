@@ -1,40 +1,36 @@
 package model;
 
 /**
- * Image class which include the width, height and a 3d array to hold pixels.
+ * This interface defines all the operations that all image must implement.
  */
-public class Image {
-
-  protected int width;
-  protected int height;
-  protected int[][][] pixels;
+public interface Image {
 
   /**
-   * Constructor of the image.
-   * @param width width of the image.
-   * @param height height of the image.
+   * Return the width to image.
+   * @return width to image
    */
-  public Image(int width, int height) {
-    this.width = width;
-    this.height = height;
-    this.pixels = new int[height][width][3];
-  }
+  int getWidth();
 
+  /**
+   * Return the height to image.
+   * @return height to image
+   */
+  int getHeight();
 
-  public int getWidth() {
-    return width;
-  }
+  /**
+   * Return int array of RGB value of the given pixel by x,y value.
+   * @param x x-coordinate
+   * @param y y-coordinate
+   * @return int array of RGB value
+   */
+  int[] getPixel(int x, int y);
 
-  public int getHeight() {
-    return height;
-  }
-
-  public int[] getPixel(int row, int col) {
-    return pixels[row][col];
-  }
-
-  public void setPixel(int row, int col, int[] rgb) {
-    pixels[row][col] = rgb;
-  }
+  /**
+   * Set the RGB value for the given pixel.
+   * @param x x-coordinate
+   * @param y y-coordinate
+   * @param RBG RGB value
+   */
+  void setPixel(int x, int y, int[] RBG);
 
 }

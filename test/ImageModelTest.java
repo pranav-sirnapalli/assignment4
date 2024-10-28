@@ -3,6 +3,7 @@ import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
 import model.Image;
 import model.ImageModel;
+import model.SimpleImage;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -20,7 +21,7 @@ public class ImageModelTest {
   @BeforeEach
   public void setUp() {
     imageModel = new ImageModel();
-    testImage = new Image(2, 2);
+    testImage = new SimpleImage(2, 2);
     testImage.setPixel(0, 0, new int[]{255, 0, 0});
     testImage.setPixel(0, 1, new int[]{0, 255, 0});
     testImage.setPixel(1, 0, new int[]{0, 0, 255});

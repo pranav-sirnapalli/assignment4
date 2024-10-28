@@ -7,6 +7,7 @@ import java.io.IOException;
 import model.Image;
 
 import java.io.BufferedReader;
+import model.SimpleImage;
 
 /**
  * PPMImageHandler is a concrete implementation of the ImageHandler interface
@@ -35,7 +36,7 @@ public class PPMImageHandler implements ImageHandler {
       int height = Integer.parseInt(dimensions[1]);
       reader.readLine(); // Skip maxVal (assuming 255)
 
-      Image img = new Image(width, height);
+      Image img = new SimpleImage(width, height);
       for (int i = 0; i < height; i++) {
         for (int j = 0; j < width; j++) {
           int r = Integer.parseInt(reader.readLine());

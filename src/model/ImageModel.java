@@ -19,7 +19,7 @@ public class ImageModel implements ImgModel {
     if (red == null || green == null || blue == null) {
       throw new IllegalArgumentException("None of the color images can be null");
     }
-    Image result = new Image(red.getWidth(), red.getHeight());
+    Image result = new SimpleImage(red.getWidth(), red.getHeight());
     for (int row = 0; row < red.getHeight(); row++) {
       for (int col = 0; col < red.getWidth(); col++) {
         int r = red.getPixel(row, col)[0];
@@ -37,7 +37,7 @@ public class ImageModel implements ImgModel {
     if (img == null) {
       throw new IllegalArgumentException("Image cannot be null");
     }
-    Image result = new Image(img.getWidth(), img.getHeight());
+    Image result = new SimpleImage(img.getWidth(), img.getHeight());
     for (int row = 0; row < img.getHeight(); row++) {
       for (int col = 0; col < img.getWidth(); col++) {
         result.setPixel(row, col, img.getPixel(row, img.getWidth() - 1 - col));
@@ -51,7 +51,7 @@ public class ImageModel implements ImgModel {
     if (img == null) {
       throw new IllegalArgumentException("Image cannot be null");
     }
-    Image result = new Image(img.getWidth(), img.getHeight());
+    Image result = new SimpleImage(img.getWidth(), img.getHeight());
     for (int row = 0; row < img.getHeight(); row++) {
       for (int col = 0; col < img.getWidth(); col++) {
         result.setPixel(img.getHeight() - 1 - row, col, img.getPixel(row, col));
@@ -65,7 +65,7 @@ public class ImageModel implements ImgModel {
     if (img == null) {
       throw new IllegalArgumentException("Image cannot be null");
     }
-    Image result = new Image(img.getWidth(), img.getHeight());
+    Image result = new SimpleImage(img.getWidth(), img.getHeight());
     for (int row = 0; row < img.getHeight(); row++) {
       for (int col = 0; col < img.getWidth(); col++) {
         int[] pixel = img.getPixel(row, col);
@@ -84,7 +84,7 @@ public class ImageModel implements ImgModel {
     if (img == null) {
       throw new IllegalArgumentException("Image cannot be null");
     }
-    Image result = new Image(img.getWidth(), img.getHeight());
+    Image result = new SimpleImage(img.getWidth(), img.getHeight());
     for (int row = 0; row < img.getHeight(); row++) {
       for (int col = 0; col < img.getWidth(); col++) {
         int[] pixel = img.getPixel(row, col);
@@ -101,7 +101,7 @@ public class ImageModel implements ImgModel {
     if (img == null) {
       throw new IllegalArgumentException("Image cannot be null");
     }
-    Image result = new Image(img.getWidth(), img.getHeight());
+    Image result = new SimpleImage(img.getWidth(), img.getHeight());
     int[][] kernel = {
         {1, 1, 1},
         {1, 1, 1},
@@ -135,7 +135,7 @@ public class ImageModel implements ImgModel {
     if (img == null) {
       throw new IllegalArgumentException("Image cannot be null");
     }
-    Image result = new Image(img.getWidth(), img.getHeight());
+    Image result = new SimpleImage(img.getWidth(), img.getHeight());
 
     for (int row = 0; row < img.getHeight(); row++) {
       for (int col = 0; col < img.getWidth(); col++) {
@@ -159,7 +159,7 @@ public class ImageModel implements ImgModel {
     if (img == null) {
       throw new IllegalArgumentException("Image cannot be null");
     }
-    Image result = new Image(img.getWidth(), img.getHeight());
+    Image result = new SimpleImage(img.getWidth(), img.getHeight());
 
     double[][] kernel = {
         {-0.125, -0.125, -0.125, -0.125, -0.125},
@@ -203,7 +203,7 @@ public class ImageModel implements ImgModel {
     if (img == null) {
       throw new IllegalArgumentException("Image cannot be null");
     }
-    Image result = new Image(img.getWidth(), img.getHeight());
+    Image result = new SimpleImage(img.getWidth(), img.getHeight());
 
     for (int row = 0; row < img.getHeight(); row++) {
       for (int col = 0; col < img.getWidth(); col++) {
@@ -223,7 +223,7 @@ public class ImageModel implements ImgModel {
     if (img == null) {
       throw new IllegalArgumentException("Image cannot be null");
     }
-    Image result = new Image(img.getWidth(), img.getHeight());
+    Image result = new SimpleImage(img.getWidth(), img.getHeight());
 
     for (int row = 0; row < img.getHeight(); row++) {
       for (int col = 0; col < img.getWidth(); col++) {
@@ -243,7 +243,7 @@ public class ImageModel implements ImgModel {
     if (img == null) {
       throw new IllegalArgumentException("Image cannot be null");
     }
-    Image result = new Image(img.getWidth(), img.getHeight());
+    Image result = new SimpleImage(img.getWidth(), img.getHeight());
 
     for (int row = 0; row < img.getHeight(); row++) {
       for (int col = 0; col < img.getWidth(); col++) {

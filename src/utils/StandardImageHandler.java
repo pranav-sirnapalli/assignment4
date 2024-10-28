@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 import model.Image;
+import model.SimpleImage;
 
 /**
  * StandardImageHandler is a concrete implementation of the ImageHandler interface specifically for
@@ -18,7 +19,7 @@ public class StandardImageHandler implements ImageHandler {
       BufferedImage bufferedImage = ImageIO.read(new File(filePath));
       int width = bufferedImage.getWidth();
       int height = bufferedImage.getHeight();
-      Image img = new Image(width, height);
+      Image img = new SimpleImage(width, height);
       for (int i = 0; i < height; i++) {
         for (int j = 0; j < width; j++) {
           int rgb = bufferedImage.getRGB(j, i);

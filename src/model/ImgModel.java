@@ -11,7 +11,7 @@ public interface ImgModel {
    * @param image the Image to be split
    * @return an RGBImage object containing separate channels for red, green, and blue
    */
-  RGBImage splitImage(Image image);
+  Image splitImage(Image image);
 
   /**
    * Combines the red, green, and blue components of separate images into one final image.
