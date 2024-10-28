@@ -61,7 +61,7 @@ public class PPMImageHandler implements ImageHandler {
       for (int i = 0; i < img.getHeight(); i++) {
         for (int j = 0; j < img.getWidth(); j++) {
           int[] pixel = img.getPixel(i, j);
-          writer.write(pixel[0] + "\n" + pixel[1] + "\n" + pixel[2] + "\n");
+          writer.write( pixel[0] + "\n" + pixel[1] + "\n" + pixel[2] + "\n");
         }
       }
     } catch (IOException e) {

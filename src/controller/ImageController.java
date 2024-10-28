@@ -55,7 +55,7 @@ public class ImageController {
    *
    * @param command The command entered by the user.
    */
-  private void processCommand(String command) {
+  public void processCommand(String command) {
     // Skip empty lines or comments
     if (command.isEmpty() || command.startsWith("#")) {
       return;
