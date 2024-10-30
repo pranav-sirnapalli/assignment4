@@ -4,10 +4,10 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import model.Image;
+import model.image.Image;
 
 import java.io.BufferedReader;
-import model.SimpleImage;
+import model.image.SimpleImage;
 
 /**
  * PPMImageHandler is a concrete implementation of the ImageHandler interface

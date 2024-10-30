@@ -1,6 +1,6 @@
 package utils;
 
-import model.Image;
+import model.image.Image;
 
 
 /**

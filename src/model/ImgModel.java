@@ -1,5 +1,7 @@
 package model;
 
+import model.image.Image;
+
 /**
  * ImgOperations interface defines the operations that can be performed on images.
  */

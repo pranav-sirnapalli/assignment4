@@ -4,8 +4,8 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
-import model.Image;
-import model.SimpleImage;
+import model.image.Image;
+import model.image.SimpleImage;
 
 /**
  * StandardImageHandler is a concrete implementation of the ImageHandler interface specifically for

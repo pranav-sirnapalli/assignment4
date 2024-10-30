@@ -1,9 +1,9 @@
 import static org.junit.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
-import model.Image;
+import model.image.Image;
 import model.ImageModel;
-import model.SimpleImage;
+import model.image.SimpleImage;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

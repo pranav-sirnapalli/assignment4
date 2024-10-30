@@ -8,7 +8,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.PrintStream;
 import java.util.Scanner;
-import model.Image;
+import model.image.Image;
 import model.ImageModel;
 import org.junit.Before;
 import org.junit.Test;

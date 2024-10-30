@@ -1,5 +1,9 @@
 package model;
 
+import model.image.Image;
+import model.image.RGBImage;
+import model.image.SimpleImage;
+
 /**
  * ImageModel implemented ImgModel which provides various image manipulation methods such as
  * loading, saving, flipping, and applying filters like blur, sepia, and sharpen.

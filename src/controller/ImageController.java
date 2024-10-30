@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
-import model.Image;
+import model.image.Image;
 import model.ImageModel;
 import utils.ImageIOHelper;
 
