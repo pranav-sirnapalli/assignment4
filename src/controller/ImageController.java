@@ -39,7 +39,7 @@ public class ImageController {
       System.out.print("Enter command: ");
       String command = scanner.nextLine();
 
-      if (command.equals("exit")) {
+      if (command.equalsIgnoreCase("exit")) {
         System.out.println("Exiting program...");
         running = false;
       } else {
