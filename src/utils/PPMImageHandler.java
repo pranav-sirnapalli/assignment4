@@ -31,6 +31,7 @@ public class PPMImageHandler implements ImageHandler {
         }
       }
 
+      assert line != null;
       String[] dimensions = line.split(" ");
       int width = Integer.parseInt(dimensions[0]);
       int height = Integer.parseInt(dimensions[1]);

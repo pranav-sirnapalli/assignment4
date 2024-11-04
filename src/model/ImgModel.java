@@ -130,5 +130,12 @@ public interface ImgModel {
    */
   Image blueComponent(Image img);
 
-
+  /**
+   * Compress Image to reduce the size base on the given percentage,
+   *
+   * @param img        the image to compress.
+   * @param percentage the percentage to compress.
+   * @return the compressed image.
+   */
+  Image CompressImage(Image img, int percentage);
 }

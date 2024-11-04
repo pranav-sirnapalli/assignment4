@@ -33,4 +33,13 @@ public interface Image {
    */
   void setPixel(int x, int y, int[] RBG);
 
+  /**
+   * Set the RGB value for the given pixel.
+   * @param x x-coordinate
+   * @param y y-coordinate
+   * @param channel channel
+   * @param value RGB value
+   */
+  void setPixel(int x, int y, int channel, int value);
+
 }

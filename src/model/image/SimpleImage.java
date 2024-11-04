@@ -41,4 +41,8 @@ public class SimpleImage implements Image {
     pixels[row][col] = rgb;
   }
 
+  @Override
+  public void setPixel(int row ,int col, int channel, int value) {
+    pixels[row][col][channel] = value;
+  }
 }

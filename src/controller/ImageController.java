@@ -151,6 +151,11 @@ public class ImageController {
         Image intensity = imageModel.intensity(images.get(tokens[1]));
         images.put(tokens[2], intensity);
         break;
+      case "compress":
+        int percentage = Integer.parseInt(tokens[1]);
+        Image compressed = imageModel.CompressImage(images.get(tokens[2]),percentage);
+        images.put(tokens[3], compressed);
+        break;
       case "run":
         runScript(tokens[1]);
         break;
@@ -169,7 +174,6 @@ public class ImageController {
    */
   private void runScript(String scriptPath) {
     try {
-      String path = "script.txt";
       BufferedReader reader = new BufferedReader(new FileReader(scriptPath));
       String line;
       while ((line = reader.readLine()) != null) {
