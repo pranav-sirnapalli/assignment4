@@ -107,8 +107,9 @@ public class ImageModel implements ImgModel {
 
   /**
    * Helper function for blur and sharpen.
-   * @param img the image to apply the filter
-   * @param kernel the filter kernel
+   *
+   * @param img        the image to apply the filter
+   * @param kernel     the filter kernel
    * @param kernelSize the size of the kernel
    * @return the processed image
    */
@@ -160,7 +161,8 @@ public class ImageModel implements ImgModel {
 
   /**
    * Helper function for sepia and luma.
-   * @param img the image to apply this effect
+   *
+   * @param img    the image to apply this effect
    * @param filter the filter
    * @return the processed image
    */
@@ -174,9 +176,15 @@ public class ImageModel implements ImgModel {
       for (int col = 0; col < img.getWidth(); col++) {
         int[] rgb = img.getPixel(row, col);
         int[] newColor = new int[3];
-        newColor[0] = (int) Math.min(Math.max((filter[0][0] * rgb[0] + filter[0][1] * rgb[1] + filter[0][2] * rgb[2]), 0), 255);
-        newColor[1] = (int) Math.min(Math.max((filter[1][0] * rgb[0] + filter[1][1] * rgb[1] + filter[1][2] * rgb[2]), 0), 255);
-        newColor[2] = (int) Math.min(Math.max((filter[2][0] * rgb[0] + filter[2][1] * rgb[1] + filter[2][2] * rgb[2]), 0), 255);
+        newColor[0] = (int) Math.min(
+            Math.max((filter[0][0] * rgb[0] + filter[0][1] * rgb[1] + filter[0][2] * rgb[2]), 0),
+            255);
+        newColor[1] = (int) Math.min(
+            Math.max((filter[1][0] * rgb[0] + filter[1][1] * rgb[1] + filter[1][2] * rgb[2]), 0),
+            255);
+        newColor[2] = (int) Math.min(
+            Math.max((filter[2][0] * rgb[0] + filter[2][1] * rgb[1] + filter[2][2] * rgb[2]), 0),
+            255);
         result.setPixel(row, col, newColor);
       }
     }
@@ -186,7 +194,7 @@ public class ImageModel implements ImgModel {
 
   @Override
   public Image luma(Image img) {
-    return sepiaOrLuma(img, new double[][] {
+    return sepiaOrLuma(img, new double[][]{
         {0.299, 0.587, 0.114},
         {0.299, 0.587, 0.114},
         {0.299, 0.587, 0.114}
@@ -195,7 +203,7 @@ public class ImageModel implements ImgModel {
 
   @Override
   public Image sepia(Image img) {
-    return sepiaOrLuma(img,new double[][] {
+    return sepiaOrLuma(img, new double[][]{
         {0.393, 0.769, 0.189},
         {0.349, 0.686, 0.168},
         {0.272, 0.534, 0.131}
@@ -341,6 +349,9 @@ public class ImageModel implements ImgModel {
 
   @Override
   public Image histogram(Image image) {
+    if (image == null) {
+      throw new IllegalArgumentException("Input image cannot be null");
+    }
     int cur_width = 256;
     int cur_height = 256;
     BufferedImage cur_histImage = new BufferedImage(cur_width, cur_height,
@@ -419,6 +430,19 @@ public class ImageModel implements ImgModel {
 
   @Override
   public Image adjustLevels(Image image, int bl_thresh, int mt_point, int wh_point) {
+
+    // Ensure compression percentage is valid
+    if (bl_thresh < 0 || bl_thresh > 255) {
+      throw new IllegalArgumentException("bl_thresh must between 0 and 255.");
+    }
+    if (mt_point < 0 || mt_point > 255) {
+      throw new IllegalArgumentException("mt_point must between 0 and 255.");
+    }
+
+    if (wh_point < 0 || wh_point > 255) {
+      throw new IllegalArgumentException("wh_point must between 0 and 255.");
+    }
+
     double sc_bm = (double) 128 / (mt_point - bl_thresh);
     double sc_mw = (double) (255 - 128) / (wh_point - mt_point);
 

@@ -1,11 +1,17 @@
 #split-view
-load src/res/city.png a
-blur a a_blur_split split 50
-save src/res/blur_split.png a_blur_split
+load src/res/a.png a
+sharpen a a_sharpen_split split 50
+save src/res/sharpen_split.png a_sharpen_split
+
+greyScale a a_grey_split split 80
+save src/res/greyScale_split.png a_grey_split
 
 #color correction
 color-correct a a_correct
 save src/res/colorCorrect.png a_correct
+
+histogram a a_correct_his
+save src/res/colorCorrect_his.png a_correct_his
 
 #histogram
 histogram a a_histogram
@@ -15,9 +21,24 @@ save src/res/histogram.png a_histogram
 levels-adjust 20 100 255 a a_adjusted
 save src/res/adjusted.png a_adjusted
 
+levels-adjust 0 50 255 a a_adjusted2
+save src/res/adjusted2.png a_adjusted2
+
+histogram a a_adjusted_his
+save src/res/adjusted_his.png a_adjusted_his
+
+histogram a a_adjusted2_his
+save src/res/adjusted2_his.png a_adjusted2_his
+
 #compress
-compress 0 a a_compress
-save src/res/compressed_0.png a_compress
+compress 90 a a_compress
+save src/res/compressed_90.png a_compress
+
+histogram a a_compress_his
+save src/res/compressed_90_his.png a_compress_his
 
 compress 80 a a_compress
 save src/res/compressed_80.png a_compress
+
+histogram a a_compress_his
+save src/res/compressed_80_his.png a_compress_his

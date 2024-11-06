@@ -57,7 +57,7 @@
   Quit the program.
 
 #### New Feature for split-view:
-The image manipulations below are supported the split-view function:
+The image manipulations below are supported the split-view function:  
 blur/sharpen/sepia/greyscale/color-correct/levels-adjust
 - **`Use those command as usual just add "split <percentage>" after it`**
 - **`Use the blur as example:`**
