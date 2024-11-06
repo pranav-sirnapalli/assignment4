@@ -6,9 +6,9 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
+import model.ImageModel;
 import model.ImgModel;
 import model.image.Image;
-import model.ImageModel;
 import utils.ioHelper.ImageIOHelper;
 
 /**
@@ -31,6 +31,7 @@ public class ImageController {
 
   /**
    * Run the Controller logic.
+   *
    * @param scanner scanner of run.
    */
   public void run(Scanner scanner) {
@@ -99,22 +100,6 @@ public class ImageController {
         Image img = imageModel.brighten(images.get(tokens[1]), increment);
         images.put(tokens[2], img);
         break;
-      case "blur":
-        Image blur = imageModel.blur(images.get(tokens[1]));
-        images.put(tokens[2], blur);
-        break;
-      case "sepia":
-        Image sepia = imageModel.sepia(images.get(tokens[1]));
-        images.put(tokens[2], sepia);
-        break;
-      case "sharpen":
-        Image sharpen = imageModel.sharpen(images.get(tokens[1]));
-        images.put(tokens[2], sharpen);
-        break;
-      case "greyScale":
-        Image greyScale = imageModel.toGreyscale(images.get(tokens[1]));
-        images.put(tokens[2], greyScale);
-        break;
       case "rgb-split":
         Image r = imageModel.redComponent(images.get(tokens[1]));
         Image g = imageModel.greenComponent(images.get(tokens[1]));
@@ -152,24 +137,66 @@ public class ImageController {
         Image intensity = imageModel.intensity(images.get(tokens[1]));
         images.put(tokens[2], intensity);
         break;
-      case "histogram":
-        Image histogram = imageModel.histogram(images.get(tokens[1]));
-        images.put(tokens[2], histogram);
+      case "blur":
+        Image blur = imageModel.blur(images.get(tokens[1]));
+        if (tokens.length == 5) {
+          int splitPercentage = Integer.parseInt(tokens[4]);
+          blur = imageModel.splitView(images.get(tokens[1]), blur, splitPercentage);
+        }
+        images.put(tokens[2], blur);
+        break;
+      case "sepia":
+        Image sepia = imageModel.sepia(images.get(tokens[1]));
+        if (tokens.length == 5) {
+          int splitPercentage = Integer.parseInt(tokens[4]);
+          sepia = imageModel.splitView(images.get(tokens[1]), sepia, splitPercentage);
+        }
+        images.put(tokens[2], sepia);
+        break;
+      case "sharpen":
+        Image sharpen = imageModel.sharpen(images.get(tokens[1]));
+        if (tokens.length == 5) {
+          int splitPercentage = Integer.parseInt(tokens[4]);
+          sharpen = imageModel.splitView(images.get(tokens[1]), sharpen, splitPercentage);
+        }
+        images.put(tokens[2], sharpen);
+        break;
+      case "greyScale":
+        Image greyScale = imageModel.toGreyscale(images.get(tokens[1]));
+        if (tokens.length == 5) {
+          int splitPercentage = Integer.parseInt(tokens[4]);
+          greyScale = imageModel.splitView(images.get(tokens[1]), greyScale, splitPercentage);
+        }
+        images.put(tokens[2], greyScale);
         break;
       case "color-correct":
         Image correctedImage = imageModel.correctColor(images.get(tokens[1]));
+        if (tokens.length == 5) {
+          int splitPercentage = Integer.parseInt(tokens[4]);
+          correctedImage = imageModel.splitView(images.get(tokens[1]), correctedImage,
+              splitPercentage);
+        }
         images.put(tokens[2], correctedImage);
         break;
       case "levels-adjust":
         int black = Integer.parseInt(tokens[1]);
         int mid = Integer.parseInt(tokens[2]);
         int white = Integer.parseInt(tokens[3]);
-        Image adjustedImage = imageModel.adjustLevels(images.get(tokens[4]),black,mid,white);
+        Image adjustedImage = imageModel.adjustLevels(images.get(tokens[4]), black, mid, white);
+        if (tokens.length == 5) {
+          int splitPercentage = Integer.parseInt(tokens[4]);
+          adjustedImage = imageModel.splitView(images.get(tokens[1]), adjustedImage,
+              splitPercentage);
+        }
         images.put(tokens[5], adjustedImage);
+        break;
+      case "histogram":
+        Image histogram = imageModel.histogram(images.get(tokens[1]));
+        images.put(tokens[2], histogram);
         break;
       case "compress":
         int percentage = Integer.parseInt(tokens[1]);
-        Image compressed = imageModel.compressImage(images.get(tokens[2]),percentage);
+        Image compressed = imageModel.compressImage(images.get(tokens[2]), percentage);
         images.put(tokens[3], compressed);
         break;
       case "run":

@@ -32,8 +32,8 @@ public class ImageControllerTest {
     Image loadImage = ImageIOHelper.loadImage(ppmFile.getAbsolutePath());
 
     assertNotNull("The loaded image should not be null", loadImage);
-    assertEquals("The width of the image should be 4", 1600, loadImage.getWidth());
-    assertEquals("The height of the image should be 4", 1600, loadImage.getHeight());
+    assertEquals("The width of the image should be 1600", 1600, loadImage.getWidth());
+    assertEquals("The height of the image should be 1600", 1600, loadImage.getHeight());
 
     assertArrayEquals("Check the first pixels", new int[]{218, 93, 71}, loadImage.getPixel(0, 0));
     assertArrayEquals("Check the last pixels", new int[]{218, 93, 71}, loadImage.getPixel(3, 3));

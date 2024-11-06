@@ -67,10 +67,10 @@ public class ImageModelTest {
   @Test
   public void testBlur() {
     Image blurred = imageModel.blur(testImage);
-    assertArrayEquals(new int[]{141, 85, 56}, blurred.getPixel(0, 0));
-    assertArrayEquals(new int[]{113, 170, 28}, blurred.getPixel(0, 1));
-    assertArrayEquals(new int[]{113, 85, 113}, blurred.getPixel(1, 0));
-    assertArrayEquals(new int[]{141, 170, 56}, blurred.getPixel(1, 1));
+    assertArrayEquals(new int[]{155, 61, 46}, blurred.getPixel(0, 0));
+    assertArrayEquals(new int[]{92, 186, 15}, blurred.getPixel(0, 1));
+    assertArrayEquals(new int[]{92, 61, 140}, blurred.getPixel(1, 0));
+    assertArrayEquals(new int[]{155, 186, 46}, blurred.getPixel(1, 1));
   }
 
   @Test

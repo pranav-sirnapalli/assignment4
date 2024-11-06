@@ -1,0 +1,23 @@
+#split-view
+load src/res/city.png a
+blur a a_blur_split split 50
+save src/res/blur_split.png a_blur_split
+
+#color correction
+color-correct a a_correct
+save src/res/colorCorrect.png a_correct
+
+#histogram
+histogram a a_histogram
+save src/res/histogram.png a_histogram
+
+#levels-adjust
+levels-adjust 20 100 255 a a_adjusted
+save src/res/adjusted.png a_adjusted
+
+#compress
+compress 0 a a_compress
+save src/res/compressed_0.png a_compress
+
+compress 80 a a_compress
+save src/res/compressed_80.png a_compress

@@ -1,6 +1,5 @@
 package model;
 
-import java.awt.image.BufferedImage;
 import model.image.Image;
 
 /**
@@ -151,8 +150,28 @@ public interface ImgModel {
    */
   Image adjustLevels(Image image, int bl_thresh, int mt_point, int wh_point);
 
-
+  /**
+   * Generate a histogram to show the frequencies of each RGB value.
+   * @param image the reference image
+   * @return a histogram image for reference image
+   */
   Image histogram(Image image);
 
+  /**
+   * Correct the color of the image.
+   * @param image the image to correct
+   * @return the corrected image
+   */
   Image correctColor(Image image);
+
+  /**
+   * Create a split view base on the split percentage. On the left-side of result image is precessedImage, ont right-side
+   * is the originImage.
+   *
+   * @param originImage     the original image
+   * @param processedImage  the processed image
+   * @param splitPercentage the percentage of splitting view
+   * @return the split image
+   */
+  Image splitView(Image originImage, Image processedImage, int splitPercentage);
 }

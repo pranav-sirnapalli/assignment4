@@ -48,58 +48,6 @@ The operations performed as well as the files used for it are written below to g
               green and blue from the particular images. The results returned in the methods of this class
               are used to set the pixels.
 
-## Supported Commands:
-
-The following commands are supported by the Image Processing Program:
-
-- **`load <input_file_path> <reference_name>`**  
-  Loads an image from the specified file and stores it with the given reference name.
-
-- **`save <save_path> <output_name>`**  
-  Saves the image referenced by `<output_name>` to the specified path.
-
-- **`horizontal-flip <reference_name> <output_name>`**  
-  Creates a horizontally flipped version of the image referenced by `<reference_name>`.
-
-- **`vertical-flip <reference_name> <output_name>`**  
-  Creates a vertically flipped version of the image referenced by `<reference_name>`.
-
-- **`brighten <reference_name> <output_name> <increment>`**  
-  Brightens the image referenced by `<reference_name>` by the specified increment.
-
-- **`blur <reference_name> <output_name>`**  
-  Applies a blur effect to the image referenced by `<reference_name>`.
-
-- **`sepia <reference_name> <output_name>`**  
-  Applies a sepia tone to the image referenced by `<reference_name>`.
-
-- **`sharpen <reference_name> <output_name>`**  
-  Sharpens the image referenced by `<reference_name>`.
-
-- **`greyScale <reference_name> <output_name>`**  
-  Converts the image referenced by `<reference_name>` to greyscale.
-
-- **`value-component <reference_name> <output_name>`**  
-  Converts the image referenced by `<reference_name>` to value-component .
-
-- **`rgb-split <reference_name> <red_output> <green_output> <blue_output>`**  
-  Splits the image into its RGB components.
-
-- **`rgb-combine <output_name> <red_reference> <green_reference> <blue_reference>`**  
-  Combines RGB components back into a single image.
-
-- **`run <script_path>`**  
-  Executes a series of commands from a script file.
-
-- **`exit`**  
-  Quit the program. 
-
-
-## How to run script file:
-- Go to the Main.java and click the run button.
-- Go to the command line.
-- A text file called `script.txt` has been pre-written under the src.
-- And type this `run src/script.txt` in command line to run the script.
 
 ## Citation for picture: 
 - This picture is draw by my friend, her name(Xueer Wang) is also on the picture.

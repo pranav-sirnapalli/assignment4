@@ -2,8 +2,11 @@ package utils.compression;
 
 import java.util.Arrays;
 
-
+/**
+ * Helper class for compression.
+ */
 public class HaarTransform {
+
 
   public static double[] haarWaveletTransform(double[] sequence) {
     int reqlen = sequence.length;
