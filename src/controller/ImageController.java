@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
+import model.ImgModel;
 import model.image.Image;
 import model.ImageModel;
 import utils.ioHelper.ImageIOHelper;
@@ -18,7 +19,7 @@ import utils.ioHelper.ImageIOHelper;
  */
 public class ImageController {
 
-  private ImageModel imageModel;
+  private ImgModel imageModel;
   private Map<String, Image> images = new HashMap<>();
 
   /**
@@ -150,6 +151,21 @@ public class ImageController {
       case "intensity-component":
         Image intensity = imageModel.intensity(images.get(tokens[1]));
         images.put(tokens[2], intensity);
+        break;
+      case "histogram":
+        Image histogram = imageModel.histogram(images.get(tokens[1]));
+        images.put(tokens[2], histogram);
+        break;
+      case "color-correct":
+        Image correctedImage = imageModel.correctColor(images.get(tokens[1]));
+        images.put(tokens[2], correctedImage);
+        break;
+      case "levels-adjust":
+        int black = Integer.parseInt(tokens[1]);
+        int mid = Integer.parseInt(tokens[2]);
+        int white = Integer.parseInt(tokens[3]);
+        Image adjustedImage = imageModel.adjustLevels(images.get(tokens[4]),black,mid,white);
+        images.put(tokens[5], adjustedImage);
         break;
       case "compress":
         int percentage = Integer.parseInt(tokens[1]);

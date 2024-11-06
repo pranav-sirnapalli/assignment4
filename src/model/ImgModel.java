@@ -1,5 +1,6 @@
 package model;
 
+import java.awt.image.BufferedImage;
 import model.image.Image;
 
 /**
@@ -133,9 +134,25 @@ public interface ImgModel {
   /**
    * Compress Image to reduce the size base on the given percentage,
    *
-   * @param img        the image to compress.
-   * @param percentage the percentage to compress.
-   * @return the compressed image.
+   * @param img        the image to compress
+   * @param percentage the percentage to compress
+   * @return the compressed image
    */
   Image compressImage(Image img, int percentage);
+
+  /**
+   * Levels-adjust the image base on the given parameter.
+   *
+   * @param image     the image to adjust
+   * @param bl_thresh black value
+   * @param mt_point  mid value
+   * @param wh_point  white value
+   * @return the adjusted image
+   */
+  Image adjustLevels(Image image, int bl_thresh, int mt_point, int wh_point);
+
+
+  Image histogram(Image image);
+
+  Image correctColor(Image image);
 }

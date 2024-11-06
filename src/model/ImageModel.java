@@ -1,5 +1,8 @@
 package model;
 
+import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
 import model.image.Image;
 import model.image.RGBImage;
 import model.image.SimpleImage;
@@ -107,11 +110,7 @@ public class ImageModel implements ImgModel {
       throw new IllegalArgumentException("Image cannot be null");
     }
     Image result = new SimpleImage(img.getWidth(), img.getHeight());
-    int[][] kernel = {
-        {1, 1, 1},
-        {1, 1, 1},
-        {1, 1, 1}
-    };
+    int[][] kernel = {{1, 1, 1}, {1, 1, 1}, {1, 1, 1}};
     int kernelSize = 3;
     int kernelSum = 9;
 
@@ -166,13 +165,9 @@ public class ImageModel implements ImgModel {
     }
     Image result = new SimpleImage(img.getWidth(), img.getHeight());
 
-    double[][] kernel = {
-        {-0.125, -0.125, -0.125, -0.125, -0.125},
-        {-0.125, 0.25, 0.25, 0.25, -0.125},
-        {-0.125, 0.25, 1, 0.25, -0.125},
-        {-0.125, 0.25, 0.25, 0.25, -0.125},
-        {-0.125, -0.125, -0.125, -0.125, -0.125}
-    };
+    double[][] kernel = {{-0.125, -0.125, -0.125, -0.125, -0.125},
+        {-0.125, 0.25, 0.25, 0.25, -0.125}, {-0.125, 0.25, 1, 0.25, -0.125},
+        {-0.125, 0.25, 0.25, 0.25, -0.125}, {-0.125, -0.125, -0.125, -0.125, -0.125}};
 
     int kernelSize = 5;
     int halfKernel = kernelSize / 2;
@@ -291,6 +286,157 @@ public class ImageModel implements ImgModel {
   }
 
   @Override
+  public Image correctColor(Image image) {
+    // Analyze histogram to find meaningful peaks for each channel
+    int[] rHist = new int[256];
+    int[] gHist = new int[256];
+    int[] bHist = new int[256];
+
+    for (int x = 0; x < image.getHeight(); x++) {
+      for (int y = 0; y < image.getWidth(); y++) {
+        int[] color = image.getPixel(x, y);
+        rHist[color[0]]++;
+        gHist[color[1]]++;
+        bHist[color[2]]++;
+      }
+    }
+
+    // Ignore peaks at histogram extremities and find meaningful peaks
+    int rPeak = findPeak(rHist, 10, 245);
+    int gPeak = findPeak(gHist, 10, 245);
+    int bPeak = findPeak(bHist, 10, 245);
+
+    int avgPeak = (rPeak + gPeak + bPeak) / 3;
+
+    // Offset channels to align peaks to the average peak
+    BufferedImage correctedImage = new BufferedImage(image.getWidth(), image.getHeight(),
+        BufferedImage.TYPE_INT_RGB);
+
+    for (int x = 0; x < image.getHeight(); x++) {
+      for (int y = 0; y < image.getWidth(); y++) {
+        int[] color = image.getPixel(x, y);
+        int red = clamp(color[0] + (avgPeak - rPeak));
+        int green = clamp(color[1] + (avgPeak - gPeak));
+        int blue = clamp(color[2] + (avgPeak - bPeak));
+        correctedImage.setRGB(y, x, new Color(red, green, blue).getRGB());
+      }
+    }
+    return transformBufferImageToImage(correctedImage);
+  }
+
+  private int findPeak(int[] hist, int min, int max) {
+    int peak = min;
+    for (int i = min; i <= max; i++) {
+      if (hist[i] > hist[peak]) {
+        peak = i;
+      }
+    }
+    return peak;
+  }
+
+  private int clamp(int value) {
+    return Math.max(0, Math.min(255, value));
+  }
+
+  @Override
+  public Image histogram(Image image) {
+    int cur_width = 256;
+    int cur_height = 256;
+    BufferedImage cur_histImage = new BufferedImage(cur_width, cur_height,
+        BufferedImage.TYPE_INT_RGB);
+    Graphics2D graphics = cur_histImage.createGraphics();
+
+    // used to calc histograms for each channel
+    int[] rHist = new int[256];
+    int[] gHist = new int[256];
+    int[] bHist = new int[256];
+
+    for (int x = 0; x < image.getHeight(); x++) {
+      for (int y = 0; y < image.getWidth(); y++) {
+        int[] color = image.getPixel(x, y);
+        rHist[color[0]]++;
+        gHist[color[1]]++;
+        bHist[color[2]]++;
+      }
+    }
+
+    // Scale histogram values to fit within the 256x256 image
+    int max = 0;
+    for (int i = 0; i < 256; i++) {
+      max = Math.max(max, Math.max(rHist[i], Math.max(gHist[i], bHist[i])));
+    }
+    for (int i = 0; i < 256; i++) {
+      rHist[i] = (rHist[i] * cur_height) / max;
+      gHist[i] = (gHist[i] * cur_height) / max;
+      bHist[i] = (bHist[i] * cur_height) / max;
+    }
+
+    // Draw histograms as line graphs
+    graphics.setColor(Color.RED);
+    for (int i = 0; i < 255; i++) {
+      graphics.drawLine(i, cur_height - rHist[i], i + 1, cur_height - rHist[i + 1]);
+    }
+    graphics.setColor(Color.GREEN);
+    for (int i = 0; i < 255; i++) {
+      graphics.drawLine(i, cur_height - gHist[i], i + 1, cur_height - gHist[i + 1]);
+    }
+    graphics.setColor(Color.BLUE);
+    for (int i = 0; i < 255; i++) {
+      graphics.drawLine(i, cur_height - bHist[i], i + 1, cur_height - bHist[i + 1]);
+    }
+
+    graphics.dispose();
+    return transformBufferImageToImage(cur_histImage);
+  }
+
+  private Image transformBufferImageToImage(BufferedImage bufferedImage) {
+    int width = bufferedImage.getWidth();
+    int height = bufferedImage.getHeight();
+    Image img = new SimpleImage(width, height);
+    for (int i = 0; i < height; i++) {
+      for (int j = 0; j < width; j++) {
+        int rgb = bufferedImage.getRGB(j, i);
+        int[] pixel = {(rgb >> 16) & 0xFF, (rgb >> 8) & 0xFF, rgb & 0xFF};
+        img.setPixel(i, j, pixel);
+      }
+    }
+    return img;
+  }
+
+  @Override
+  public Image adjustLevels(Image image, int bl_thresh, int mt_point, int wh_point) {
+    double sc_bm = (double) 128 / (mt_point - bl_thresh);
+    double sc_mw = (double) (255 - 128) / (wh_point - mt_point);
+
+    Image adjustedImage = new SimpleImage(image.getWidth(), image.getHeight());
+
+    for (int x = 0; x < image.getHeight(); x++) {
+      for (int y = 0; y < image.getWidth(); y++) {
+        int[] color = image.getPixel(x, y);
+        int red = adjustValue(color[0], bl_thresh, mt_point, wh_point, sc_bm, sc_mw);
+        int green = adjustValue(color[1], bl_thresh, mt_point, wh_point, sc_bm, sc_mw);
+        int blue = adjustValue(color[2], bl_thresh, mt_point, wh_point, sc_bm, sc_mw);
+        adjustedImage.setPixel(x, y, new int[]{red, green, blue});
+      }
+    }
+    return adjustedImage;
+  }
+
+  private int adjustValue(int value, int bl_thresh, int mt_point, int wh_point, double sc_bm,
+      double sc_mw) {
+    if (value < bl_thresh) {
+      return 0;
+    }
+    if (value > wh_point) {
+      return 255;
+    }
+    if (value <= mt_point) {
+      return (int) ((value - bl_thresh) * sc_bm);
+    }
+    return (int) (128 + (value - mt_point) * sc_mw);
+  }
+
+  @Override
   // Compress the image using the Haar Wavelet Transform
   public Image compressImage(Image input, int percentage) {
     if (input == null) {
@@ -344,7 +490,7 @@ public class ImageModel implements ImgModel {
     return (int) Math.pow(2, Math.ceil(Math.log(n) / Math.log(2)));
   }
 
-  public Image decompressImage(double[][][] compressedData, Image original) {
+  private Image decompressImage(double[][][] compressedData, Image original) {
     if (compressedData == null || compressedData.length != 3) {
       throw new IllegalArgumentException("Compressed data must contain three color channels");
     }
@@ -383,7 +529,6 @@ public class ImageModel implements ImgModel {
     }
     return channelData;
   }
-
 
   private void applyThreshold(double[][] channel, double threshold) {
     for (int i = 0; i < channel.length; i++) {

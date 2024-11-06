@@ -79,6 +79,9 @@ The following commands are supported by the Image Processing Program:
 - **`greyScale <reference_name> <output_name>`**  
   Converts the image referenced by `<reference_name>` to greyscale.
 
+- **`value-component <reference_name> <output_name>`**  
+  Converts the image referenced by `<reference_name>` to value-component .
+
 - **`rgb-split <reference_name> <red_output> <green_output> <blue_output>`**  
   Splits the image into its RGB components.
 
