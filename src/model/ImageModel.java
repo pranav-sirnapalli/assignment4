@@ -1,9 +1,9 @@
 package model;
 
-import java.util.Arrays;
 import model.image.Image;
 import model.image.RGBImage;
 import model.image.SimpleImage;
+import utils.compression.HaarTransform;
 
 /**
  * ImageModel implemented ImgModel which provides various image manipulation methods such as
@@ -291,109 +291,107 @@ public class ImageModel implements ImgModel {
   }
 
   @Override
-  public Image CompressImage(Image img, int percentage) {
-    if (img == null) {
-      throw new IllegalArgumentException("Image cannot be null");
-    }
-    Image compressed = applyTransform(TransformType.HAAR, img);
-    double [] thresholds = new double[3];
-    for (int channel = 0; channel < 3; channel++) {
-      thresholds[channel] = calcThresholdValue(compressed,percentage,channel);
+  // Compress the image using the Haar Wavelet Transform
+  public Image compressImage(Image input, int percentage) {
+    if (input == null) {
+      throw new IllegalArgumentException("Input image cannot be null");
     }
 
-    for (int row = 0; row < compressed.getHeight(); row++) {
-      for (int col = 0; col < compressed.getWidth(); col++) {
-        for (int channel = 0; channel < 3; channel++) {
-          if (Math.abs(compressed.getPixel(row, col)[channel]) <= thresholds[channel]) {
-            compressed.setPixel(row, col, channel, 0);
-          }
-        }
+    // Ensure compression percentage is valid
+    if (percentage < 0 || percentage > 100) {
+      throw new IllegalArgumentException("Compression percentage must be between 0 and 100.");
+    }
+
+    int originalWidth = input.getWidth();
+    int originalHeight = input.getHeight();
+    int newWidth = nextPowerOfTwo(originalWidth);
+    int newHeight = nextPowerOfTwo(originalHeight);
+
+    // Create a 3D array to hold the compressed data
+    double[][][] compressedData = new double[3][newHeight][newWidth];
+
+    Image resizedImage = new SimpleImage(newWidth, newHeight);
+
+    // Copy existing pixel data to resized image
+    for (int row = 0; row < originalHeight; row++) {
+      for (int col = 0; col < originalWidth; col++) {
+        resizedImage.setPixel(row, col, input.getPixel(row, col));
       }
-
     }
 
-    compressed = applyTransform(TransformType.INVERSE_HAAR, compressed);
-    return compressed;
+    // Get channel data and apply Haar Transform
+    double[][] redChannel = getChannelData(0, resizedImage);
+    double[][] greenChannel = getChannelData(1, resizedImage);
+    double[][] blueChannel = getChannelData(2, resizedImage);
+
+    // Apply Haar Transform and threshold for lossy compression
+    compressedData[0] = HaarTransform.haarWaveTransf2D(redChannel);
+    compressedData[1] = HaarTransform.haarWaveTransf2D(greenChannel);
+    compressedData[2] = HaarTransform.haarWaveTransf2D(blueChannel);
+
+    // Apply thresholding to the transformed data
+    applyThreshold(compressedData[0], percentage);
+    applyThreshold(compressedData[1], percentage);
+    applyThreshold(compressedData[2], percentage);
+
+    return decompressImage(compressedData, input);
   }
 
-  private double calcThresholdValue(Image img,int percentage, int channel) {
-    double[] allPixels = new double[img.getWidth() * img.getHeight()];
-    int index = 0;
-    for (int x = 0; x < img.getHeight(); x++) {
-      for (int y = 0; y < img.getWidth(); y++) {
-        allPixels[index++] = img.getPixel(x,y)[channel];
-      }
+  private int nextPowerOfTwo(int n) {
+    if (n <= 1) {
+      return 1;
     }
-
-    Arrays.sort(allPixels);
-
-      int thresholdIndex = (int) (allPixels.length * (percentage / 100.0));
-
-    return Math.abs(allPixels[thresholdIndex]);
+    return (int) Math.pow(2, Math.ceil(Math.log(n) / Math.log(2)));
   }
 
+  public Image decompressImage(double[][][] compressedData, Image original) {
+    if (compressedData == null || compressedData.length != 3) {
+      throw new IllegalArgumentException("Compressed data must contain three color channels");
+    }
 
-  private Image applyTransform(TransformType transform, Image img) {
-    for (int row = 0; row < img.getHeight(); row++) {
-      for (int channel = 0; channel < 3; channel++) {
-        double[] input = new double[img.getWidth()];
+    // Create a new image to hold the decompressed data
+    Image img = new SimpleImage(original.getWidth(), original.getHeight());
 
-        for (int col = 0; col < img.getWidth(); col++) {
-          input[col] = img.getPixel(row, col)[channel];
-        }
+    // Decompress each color channel using the inverse Haar transform
+    double[][] redChannel = HaarTransform.invHaarWaveTransf2D(compressedData[0]);
+    double[][] greenChannel = HaarTransform.invHaarWaveTransf2D(compressedData[1]);
+    double[][] blueChannel = HaarTransform.invHaarWaveTransf2D(compressedData[2]);
 
-        double[] transformed;
-
-        if (transform == TransformType.HAAR) {
-          transformed = haarWaveletTransform(input);
-        } else {
-          transformed = invertHaarWaveletTransform(input);
-        }
-
-        for (int col = 0; col < img.getWidth(); col++) {
-          img.setPixel(row, col, channel, (int) transformed[col]);
-
-        }
+    // Set pixel values back to original size image
+    for (int row = 0; row < original.getHeight(); row++) {
+      for (int col = 0; col < original.getWidth(); col++) {
+        int r = (int) Math.min(Math.max(redChannel[row][col], 0), 255);
+        int g = (int) Math.min(Math.max(greenChannel[row][col], 0), 255);
+        int b = (int) Math.min(Math.max(blueChannel[row][col], 0), 255);
+        img.setPixel(row, col, new int[]{r, g, b});
       }
     }
+
     return img;
-
   }
 
-  public double[] haarWaveletTransform(double[] input) {
-    int n = input.length;
-    double[] result = new double[n];
-    // padding zero if the list is odd length
-    if (n % 2 != 0) {
-      result = new double[++n];
-      result[n] = 0;
-    }
+  private double[][] getChannelData(int channel, Image image) {
+    int width = image.getWidth();
+    int height = image.getHeight();
+    double[][] channelData = new double[height][width];
 
-    for (int i = 0; i < n; i += 2) {
-      result[i / 2] = (input[i] + input[i + 1]) / Math.sqrt(2);
-      result[n / 2 + i / 2] = (input[i] - input[i + 1]) / Math.sqrt(2);
+    for (int x = 0; x < height; x++) {
+      for (int y = 0; y < width; y++) {
+        int[] rgb = image.getPixel(x, y);
+        channelData[x][y] = rgb[channel];
+      }
     }
-
-    return result;
-  }
-
-  public double[] invertHaarWaveletTransform(double[] input) {
-    int n = input.length;
-    double[] result = new double[n];
-    // padding zero if the list is odd length
-    if (n % 2 != 0) {
-      result = new double[++n];
-      result[n] = 0;
-    }
-    for (int i = 0; i < n / 2; i++) {
-      double avg = input[i];
-      double diff = input[n / 2 + i];
-      result[2 * i] = (avg + diff) / Math.sqrt(2);
-      result[2 * i + 1] = (avg - diff) / Math.sqrt(2);
-    }
-
-    return result;
+    return channelData;
   }
 
 
+  private void applyThreshold(double[][] channel, double threshold) {
+    for (int i = 0; i < channel.length; i++) {
+      for (int j = 0; j < channel[0].length; j++) {
+        if (Math.abs(channel[i][j]) < threshold) {
+          channel[i][j] = 0;
+        }
+      }
+    }
+  }
 }

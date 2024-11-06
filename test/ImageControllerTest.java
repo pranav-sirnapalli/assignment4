@@ -11,7 +11,7 @@ import java.util.Scanner;
 import model.image.Image;
 import org.junit.Before;
 import org.junit.Test;
-import utils.ImageIOHelper;
+import utils.ioHelper.ImageIOHelper;
 
 public class ImageControllerTest {
 

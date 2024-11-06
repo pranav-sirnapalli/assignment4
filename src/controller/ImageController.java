@@ -8,7 +8,7 @@ import java.util.Map;
 import java.util.Scanner;
 import model.image.Image;
 import model.ImageModel;
-import utils.ImageIOHelper;
+import utils.ioHelper.ImageIOHelper;
 
 /**
  * The ImageController class handles user commands for performing various image processing
@@ -153,7 +153,7 @@ public class ImageController {
         break;
       case "compress":
         int percentage = Integer.parseInt(tokens[1]);
-        Image compressed = imageModel.CompressImage(images.get(tokens[2]),percentage);
+        Image compressed = imageModel.compressImage(images.get(tokens[2]),percentage);
         images.put(tokens[3], compressed);
         break;
       case "run":

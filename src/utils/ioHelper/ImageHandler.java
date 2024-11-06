@@ -1,4 +1,4 @@
-package utils;
+package utils.ioHelper;
 
 import model.image.Image;
 

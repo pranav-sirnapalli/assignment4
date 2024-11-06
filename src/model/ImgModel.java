@@ -137,5 +137,5 @@ public interface ImgModel {
    * @param percentage the percentage to compress.
    * @return the compressed image.
    */
-  Image CompressImage(Image img, int percentage);
+  Image compressImage(Image img, int percentage);
 }
