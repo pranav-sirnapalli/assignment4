@@ -104,5 +104,32 @@ blue-component a a_blue_component
 #save a-a_greyScale
 save src/res/img_blue_component.png a_blue_component
 
+#Assignment 5 part
+load src/res/a.png a
+sharpen a a_sharpen_split split 50
+save src/res/sharpen_split.png a_sharpen_split
 
+greyScale a a_grey_split split 80
+save src/res/greyScale_split.png a_grey_split
 
+#color correction
+color-correct a a_correct
+save src/res/colorCorrect.png a_correct
+
+#histogram
+histogram a a_histogram
+save src/res/histogram.png a_histogram
+
+#levels-adjust
+levels-adjust 20 100 255 a a_adjusted
+save src/res/adjusted.png a_adjusted
+
+levels-adjust 0 50 255 a a_adjusted2
+save src/res/adjusted2.png a_adjusted2
+
+#compress
+compress 90 a a_compress
+save src/res/compressed_90.png a_compress
+
+compress 80 a a_compress
+save src/res/compressed_80.png a_compress

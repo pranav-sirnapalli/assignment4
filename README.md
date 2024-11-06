@@ -48,6 +48,7 @@ The operations performed as well as the files used for it are written below to g
               green and blue from the particular images. The results returned in the methods of this class
               are used to set the pixels.
 
-
+## Supported Commands:
+- Please check the commands on the other file named USEME.md.
 ## Citation for picture: 
 - This picture is draw by my friend, her name(Xueer Wang) is also on the picture.
