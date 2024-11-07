@@ -48,6 +48,12 @@ The operations performed as well as the files used for it are written below to g
               green and blue from the particular images. The results returned in the methods of this class
               are used to set the pixels.
 
+## Updates for assignment 5:
+- Added 5 features which is compression, color-correction, level-adjustment, histogram and split-view.
+- Make our code more scalable by abstract out Image to an interface.
+- All the previous function work as the before. 
+- For blur,sharpen,sepia,greyscale,color-correct,levels-adjust,they are supported with the split-view function.
+
 ## Supported Commands:
 - Please check the commands on the other file named USEME.md.
 ## Citation for picture: 
