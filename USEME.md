@@ -67,8 +67,12 @@ blur/sharpen/sepia/greyscale/color-correct/levels-adjust
 
 
 
-## How to run script file:
-- Go to the Main.java and click the run button.
-- Go to the command line.
-- A text file called `script.txt` has been pre-written under the src.
-- And type this `run src/script.txt` in command line to run the script.
+## How to run script from JAR file:
+- Move terminal into src/res
+- Type the code java -jar assignmet5.jar
+- In the enter command, type the command: run script.txt
+
+## How to run script from main:
+- Click on main file, followed by run option on top
+- run src/script.txt in terminal
+- type exit
