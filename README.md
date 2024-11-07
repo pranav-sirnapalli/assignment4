@@ -53,6 +53,14 @@ The operations performed as well as the files used for it are written below to g
 - Make our code more scalable by abstract out Image to an interface.
 - All the previous function work as the before. 
 - For blur,sharpen,sepia,greyscale,color-correct,levels-adjust,they are supported with the split-view function.
+- The script is preasent in the res folder. To run the script using jar first in terminal with path at res folder
+- add command java -jar assignment5.jar and press enter
+- followed by add command run script.txt in the enter command optoin
+- and then type exit once done.
+
+## utilites for assignment 5:
+- HaarTranform file has been added in utilties to perform image compression. The other changes were just additions.
+- to the current assignment 4 folder where we added required code in the controller and model.
 
 ## Supported Commands:
 - Please check the commands on the other file named USEME.md.
